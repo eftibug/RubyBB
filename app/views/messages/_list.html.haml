@@ -9,7 +9,7 @@
       %th= t('activerecord.models.user')
       %th= t('activerecord.models.message')
     - @messages.each do |message|
-      %tr{class: @folded ? 'folded' : nil}
+      %tr{class: "#{@folded ? 'folded' : nil} #{@as_notifications && !message.notification_read? ? 'unread' : nil}"}
         %td.user
           %a{name: "m#{message.id}"}
           %p= username message.user
@@ -44,8 +44,10 @@
                   = f.input :content
                   = f.input :message_id, as: :hidden
         %td.ago.hidden-portrait-phone.meta
-          - if url_for == notifications_path
+          - if @as_notifications
             %p= link_to t('common.remove'), notification_path(message.notification_id), method: :delete, rel: :nofollow, remote: true, class: 'delete_notification'
+            - if !message.notification_read?
+              %p.hidden= link_to t('common.read'), notification_path(message.notification_id), method: :put, rel: :nofollow, remote: true, class: 'read_notification'
           %p{title: l(message.created_at)}= time_ago_in_words message.created_at
           - if current_user && !params[:q] && current_user.id != message.user_id
             = render 'follows/show', id: message.follow_id, followable_id: message.id, followable_type: 'Message'

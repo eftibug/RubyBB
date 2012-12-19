@@ -2,22 +2,22 @@ class Notification < ActiveRecord::Base
   include ActionView::Helpers
   include Rails.application.routes.url_helpers
 
-  belongs_to :user, :counter_cache => true
+  belongs_to :user
   belongs_to :message
 
-  after_update :increment_notifications_counter
-  after_save :publish
+  after_save :update_notifications_count, :publish
+  after_destroy :update_notifications_count
 
-  def increment_notifications_count
-    self.user.increment(:notifications_count)
+  def update_notifications_count
+    self.user.update_notifications_count
   end
 
   def publish
     data = {
-      # avatar should use shared/avatar partial
       avatar: self.message.user.avatar.exists? ? self.message.user.avatar.url(:x40) : self.message.user.gravatar_url(d: 'retro'),
       title: truncate(self.message.topic.name, length: 20, separator: ' ', omission: '...'),
       content: truncate(self.message.content, length: 24, separator: ' ', omission: '...'),
+      count: self.user.notifications_count,
       link: topic_path(self.message.topic) + '?newest'
     }
     Net::HTTP.post_form(URI.parse("http://localhost:9292/faye"), message: {channel: "/#{self.user_id}/notifications", data: data}.to_json)

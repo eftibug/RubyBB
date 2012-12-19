@@ -7,7 +7,8 @@ class NotificationsController < ApplicationController
   def index
     @folded = true
     @meta = true
-    @messages = current_user.notified_messages.select('messages.*, notifications.id as notification_id').includes(:topic, :user, :updater, :small_messages => :user).with_follows(current_user).order('notifications.id desc').page(params[:page])
+    @as_notifications = true
+    @messages = current_user.notified_messages.select('messages.*, notifications.id as notification_id, notifications.read as notification_read').includes(:topic, :user, :updater, :small_messages => :user).with_follows(current_user).order('notifications.id desc').page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,9 +16,34 @@ class NotificationsController < ApplicationController
     end
   end
 
+  # PUT /notifications/1
+  def mark_as_read
+    Notification.where(:user_id => current_user.id, :id => params[:id]).first.update_column :read, true
+    current_user.update_notifications_count
+
+    respond_to do |format|
+      format.html { redirect_to notifications_url }
+      format.json { head :no_content }
+      format.js
+    end
+  end
+
+  # PUT /notifications
+  def mark_all_as_read
+    Notification.where(:user_id => current_user.id).update_all read: true
+    current_user.update_column :notifications_count, 0
+
+    respond_to do |format|
+      format.html { redirect_to notifications_url }
+      format.json { head :no_content }
+      format.js
+    end
+  end
+
   # DELETE /notifications
   def clear
-    Notification.where(:user_id => current_user.id).destroy_all
+    Notification.where(:user_id => current_user.id).delete_all
+    current_user.update_column :notifications_count, 0
 
     respond_to do |format|
       format.html { redirect_to notifications_url }

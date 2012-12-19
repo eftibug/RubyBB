@@ -41,7 +41,11 @@ RubyBB::Application.routes.draw do
   resources :follows, :only => [:index, :create, :destroy]
 
   resources :notifications, :only => [:index, :destroy] do
+    member do
+      put '' => :mark_as_read
+    end
     collection do
+      put '' => :mark_all_as_read
       delete '' => :clear
     end
   end

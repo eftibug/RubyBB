@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121216205444) do
+ActiveRecord::Schema.define(:version => 20121219150442) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -79,11 +79,13 @@ ActiveRecord::Schema.define(:version => 20121216205444) do
   create_table "notifications", :force => true do |t|
     t.integer  "user_id"
     t.integer  "message_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "read",       :default => false
   end
 
   add_index "notifications", ["message_id"], :name => "index_notifications_on_message_id"
+  add_index "notifications", ["read"], :name => "index_notifications_on_read"
   add_index "notifications", ["user_id"], :name => "index_notifications_on_user_id"
 
   create_table "redirections", :force => true do |t|

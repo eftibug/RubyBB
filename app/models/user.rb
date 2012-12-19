@@ -94,4 +94,8 @@ class User < ActiveRecord::Base
     return :user unless forum_id
     roles.where(:forum_id => forum_id).limit(1).first.try(:name) || :user
   end
+
+  def update_notifications_count
+    self.update_column :notifications_count, Notification.where(user_id: self.id, read: false).count
+  end
 end

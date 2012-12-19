@@ -22,7 +22,8 @@ body {
 }
 td a .title { color: #000; }
 a, .meta a, .user a { color: #666; }
-h1 .btn { float: right; }
+h1 .btn-group { float: right; }
+h1 .btn { font-weight: normal; }
 
 a.disabled { cursor: normal; text-decoration: none;}
 .separator { border-top: 3px #DDD solid; }
