@@ -22,6 +22,7 @@
 //= require users
 //= require forums
 //= require messages
+//= require highcharts
 //
 // Troubles with require_tree which includes scripts twice
 // require_tree .

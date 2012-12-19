@@ -54,7 +54,8 @@
 
 .span4
   .widget
-    %h1= t('.wip')
+    %h1= t('.graph')
+    #container
 
 - if can? :manage, Role.new(user_id: @user.id)
   .span12
@@ -74,3 +75,63 @@
                   %td.role{class: "role-#{r}"}
                     %input{type: :radio, name: "roles[#{f.id}]", value: r, checked: @user.send("#{r}?", f.id, true)}
         = f.button :submit, class: 'btn-warning'
+
+:javascript
+  $(function () {
+      var chart;
+      $(document).ready(function() {
+          chart = new Highcharts.Chart({
+              chart: {
+                  renderTo: 'container',
+                  backgroundColor: null,
+                  type: 'spline',
+                  zoomType: 'x'
+              },
+              title: {
+                  text: ''
+              },
+              xAxis: {
+                  type: 'datetime',
+                  maxZoom: 7 * 24 * 3600000
+              },
+              yAxis: [{
+                  title: {
+                      text: 'Messages',
+                      style: {color: '#4572A7'}
+                  },
+                  labels: {
+                      style: {color: '#4572A7'}
+                  },
+                  min: 0
+              }, {
+                  opposite: true,
+                  title: {
+                      text: 'Follows',
+                      style: {color: '#AA4643'}
+                  },
+                  labels: {
+                      style: {color: '#AA4643'}
+                  },
+                  min: 0
+              }],
+              tooltip: {
+                  formatter: function() {
+                          return '<b>'+ this.series.name +'</b><br/>'+
+                          Highcharts.dateFormat('%Y-%m-%d', this.x) +': '+ this.y;
+                  }
+              },
+              legend: {
+                  enabled: false
+              },
+              series: [{
+                  name: 'Messages',
+                  yAxis: 0,
+                  data: #{@graph_messages.to_json}
+              }, {
+                  name: 'Follows',
+                  yAxis: 1,
+                  data: #{@graph_follows.to_json}
+              }]
+          });
+      });
+  });

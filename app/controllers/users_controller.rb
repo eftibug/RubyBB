@@ -28,6 +28,23 @@ class UsersController < ApplicationController
       end
     end
 
+    fix = 1
+    data = @user.messages.select(['date(created_at) as date', 'count(id) as messages_count']).group('date')
+    accumulation = 0
+    @graph_messages = [[(@user.created_at.to_date-1+fix).to_time.to_i*1000, 0]] + data.map do |d|
+      accumulation += d.messages_count
+      [d.date.to_time.to_i*1000+fix, accumulation]
+    end
+    @graph_messages += [[(Time.now.to_date+fix).to_time.to_i*1000, accumulation]]
+
+    data = @user.messages.select(['date(created_at) as date', 'sum(follows_count) as follows_sum']).where('follows_count > ?', 0).group('date')
+    accumulation = 0
+    @graph_follows = [[(@user.created_at.to_date-1+fix).to_time.to_i*1000, 0]] + data.map do |d|
+      accumulation += d.follows_sum.to_i
+      [(d.date+fix).to_time.to_i*1000, accumulation]
+    end
+    @graph_follows += [[(Time.now.to_date+fix).to_time.to_i*1000, accumulation]]
+
     @widgets_mode = true
     respond_to do |format|
       format.html # show.html.erb

@@ -87,6 +87,7 @@ en:
       age: Age
     show:
       stats: Stats
+      graph: Graph
       admin: Admin
       more: "(%{a_day} a day, %{total} %)"
       see_messages: See messages
