@@ -66,19 +66,19 @@ class Ability
       end
 
       can :manage, SmallMessage do |o|
-        user.sysadmin? || user.id == o.user_id || user.moderator?(o.forum_id)
+        user.id == o.user_id || user.moderator?(o.forum_id)
       end
 
       can :manage, Message do |o|
-        user.sysadmin? || user.id == o.user_id || user.moderator?(o.forum_id)
+        user.id == o.user_id || user.moderator?(o.forum_id)
       end
 
       can :manage, Topic do |o|
-        user.sysadmin? || user.id == o.user_id || user.admin?(o.forum_id)
+        user.id == o.user_id || user.admin?(o.forum_id)
       end
 
       can :pin, Topic do |o|
-        user.sysadmin? || user.admin?(o.forum_id)
+        user.admin?(o.forum_id)
       end
 
       can [:create, :position], Forum do |o|
@@ -86,12 +86,12 @@ class Ability
       end
 
       can [:update, :destroy], Forum do |o|
-        user.sysadmin? || user.admin?(o.id)
+        user.admin?(o.id)
       end
 
       can :manage, Role do |o|
         (!o.user || !o.user.sysadmin?) && o.user_id != user.id &&
-        (user.sysadmin? || user.admin?(o.forum_id))
+        user.admin?(o.forum_id)
       end
 
       can :manage, User do |o|
@@ -99,7 +99,7 @@ class Ability
       end
 
       can :bot, User do |o|
-        user.sysadmin? || (user.moderator?(o.messages.first.try(:forum_id)) && !o.human)
+        user.moderator?(o.messages.first.try(:forum_id)) && !o.human
       end
     end
   end

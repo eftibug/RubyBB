@@ -67,29 +67,24 @@ class User < ActiveRecord::Base
   end
 
   # Do not remove strict param, see views/users/show
-  # If forum_id is nil, return true if user is admin on at least one forum
   def admin? forum_id = nil, strict = false
-    if forum_id
-      roles.where(:forum_id => forum_id, :name => 'admin').limit(1).any?
-    else
-      roles.where(:name => 'admin').limit(1).any?
-    end
+    (!strict && sysadmin?) || roles.where(:forum_id => forum_id, :name => 'admin').limit(1).any?
   end
 
   def moderator? forum_id, strict = false
-    roles.where(:forum_id => forum_id, :name => strict ? 'moderator' : ['admin', 'moderator']).limit(1).any?
+    (!strict && sysadmin?) || roles.where(:forum_id => forum_id, :name => strict ? 'moderator' : ['admin', 'moderator']).limit(1).any?
+  end
+
+  def writer? forum_id, strict = false
+    (!strict && sysadmin?) || roles.where(:forum_id => forum_id, :name => strict ? 'writer' : ['admin', 'moderator', 'writer']).limit(1).any?
+  end
+
+  def reader? forum_id, strict = false
+    (!strict && sysadmin?) || roles.where(:forum_id => forum_id, :name => strict ? 'reader' : ['admin', 'moderator', 'writer', 'reader']).limit(1).any?
   end
 
   def user? forum_id, strict = false
     roles.where(:forum_id => forum_id).limit(1).empty?
-  end
-
-  def reader? forum_id, strict = false
-    roles.where(:forum_id => forum_id, :name => strict ? 'reader' : ['admin', 'moderator', 'writer', 'reader']).limit(1).any?
-  end
-
-  def writer? forum_id, strict = false
-    roles.where(:forum_id => forum_id, :name => strict ? 'writer' : ['admin', 'moderator', 'writer']).limit(1).any?
   end
 
   def banned? forum_id, strict = false
