@@ -25,27 +25,25 @@
           });
         });
   %body
-    %header.navbar
+    %header.navbar.navbar-static-top
       %nav.navbar-inner
         .container
           = render 'layouts/navigation'
-    #main{:role => "main"}
+    .container
+      = render 'layouts/messages'
+      .row
+        - if @widgets_mode
+          = yield
+        - else
+          .span12
+            = yield
+    %footer.footer
       .container
-        .content
-          .row
-            - if @widgets_mode
-              = render 'layouts/messages'
-              = yield
-            - else
-              .span12
-                = render 'layouts/messages'
-                = yield
-          %footer
-            © 2012
-            = link_to 'RubyBB', 'http://www.rubybb.com'
-            –
-            = link_to 'Fork me on GitHub', 'https://github.com/RubyBB/RubyBB'
-            –
-            = link_to '@RubyBB_dev', 'https://twitter.com/RubyBB_dev'
-            –
-            = link_to 'Share on Facebook', "https://www.facebook.com/sharer/sharer.php?u=#{u request.url}", rel: 'nofollow'
+        © 2012
+        = link_to 'RubyBB', 'http://www.rubybb.com'
+        –
+        = link_to 'Fork me on GitHub', 'https://github.com/RubyBB/RubyBB'
+        –
+        = link_to '@RubyBB_dev', 'https://twitter.com/RubyBB_dev'
+        –
+        = link_to 'Share on Facebook', "https://www.facebook.com/sharer/sharer.php?u=#{u request.url}", rel: 'nofollow'
