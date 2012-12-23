@@ -1,7 +1,7 @@
 -# " cache "topic-#{@topic.id}-messages-page#{params[:page]}-#{current_user.try(:role, @topic.forum_id)||'anon'}-#{@topic.updated_at}" do
 - if true
 
-  - content_for :title, @topic.name
+  - content_for :title, raw(@topic.name)
 
   %h1
     = t('.title', name: @topic.name)
