@@ -1,5 +1,5 @@
 class ForumsController < ApplicationController
-  authorize_resource
+  authorize_resource :except => [:show]
   before_filter :authenticate_user!, :except => [:index, :show]
   before_filter :get_stats, :only => :index
 
@@ -26,6 +26,7 @@ class ForumsController < ApplicationController
         render_404
       end
     end
+    authorize! :read, @forum
 
     @topics = Topic.select('topics.*').includes(:user, :updater).for_user(current_user).where(:forum_id => @forum.children.map(&:id) << @forum.id).order('topics.pinned desc, topics.updated_at desc').page(params[:page])
     @topics = @topics.includes(:forum) if @forum.children.any?

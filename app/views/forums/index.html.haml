@@ -13,33 +13,34 @@
       %th.hidden-portrait-phone
   %tbody
     - @forums.each do |forum|
-      %tr{id: forum.id}
-        - if can? :position, forum
-          %td.position
-            ☰
-        - cache "forum-#{forum.id}-#{forum.updated_at}" do
-          %td
-            = link_to forum do
-              %p.title
-                %strong= forum.name
-            - if forum.children.any?
-              %p
-                = t('.see_also')
-                =raw forum.children.map{|f| link_to f.name, forum_path(f)}.join(', ')
-            %p.reset= forum.content
-            - if forum.roles.any?
-              %small
-                = "#{t('common.staff')}:"
-                = raw forum.roles.where(name: %w[admin moderator]).map{|r| username(r.user)}.join(', ');
-          %td.infos.hidden-phone
-            %p= t('common.topics_count', count: forum.topics_count)
-            %p= t('common.messages_count', count: forum.messages_count)
-          %td.infos.hidden-portrait-phone
-            - if forum.updated_at
-              %p= l forum.updated_at, format: :short
-              %p
-                = t('common.by')
-                = username forum.updater
+      - if can? :read, forum
+        %tr{id: forum.id}
+          - if can? :position, forum
+            %td.position
+              ☰
+          - cache "forum-#{forum.id}-#{forum.updated_at}" do
+            %td
+              = link_to forum do
+                %p.title
+                  %strong= forum.name
+              - if forum.children.any?
+                %p
+                  = t('.see_also')
+                  =raw forum.children.map{|f| link_to f.name, forum_path(f) if can? :read, f}.reject(&:nil?).join(', ')
+              %p.reset= forum.content
+              - if forum.roles.any?
+                %small
+                  = "#{t('common.staff')}:"
+                  = raw forum.roles.where(name: %w[admin moderator]).map{|r| username(r.user)}.join(', ');
+            %td.infos.hidden-phone
+              %p= t('common.topics_count', count: forum.topics_count)
+              %p= t('common.messages_count', count: forum.messages_count)
+            %td.infos.hidden-portrait-phone
+              - if forum.updated_at
+                %p= l forum.updated_at, format: :short
+                %p
+                  = t('common.by')
+                  = username forum.updater
 
 .widget
   %h4= t('common.stats')

@@ -3,7 +3,9 @@
 
   .form-inputs
     = f.input :name, :required => true, :input_html => {:maxlength => 64}
-    = f.association :parent
+    = f.input :reader, :as => :select, :collection => %w[banned user reader], :required => true, :include_blank => false
+    = f.input :writer, :as => :select, :collection => %w[user writer], :required => true, :include_blank => false
+    = f.association :parent, :collection => Forum.where(:parent_id => nil)
     = f.input :content, :input_html => {:rows => 5}
 
   .form-actions

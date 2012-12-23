@@ -2,7 +2,6 @@
 class User < ActiveRecord::Base
   include Redirectable
 
-  ROLES = %w[banned user moderator admin]
   has_many :roles, :dependent => :destroy
   has_many :topics
   has_many :messages
@@ -83,6 +82,14 @@ class User < ActiveRecord::Base
 
   def user? forum_id, strict = false
     roles.where(:forum_id => forum_id).limit(1).empty?
+  end
+
+  def reader? forum_id, strict = false
+    roles.where(:forum_id => forum_id, :name => strict ? 'reader' : ['admin', 'moderator', 'writer', 'reader']).limit(1).any?
+  end
+
+  def writer? forum_id, strict = false
+    roles.where(:forum_id => forum_id, :name => strict ? 'writer' : ['admin', 'moderator', 'writer']).limit(1).any?
   end
 
   def banned? forum_id, strict = false

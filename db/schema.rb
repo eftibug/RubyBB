@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121219150442) do
+ActiveRecord::Schema.define(:version => 20121223123810) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -42,14 +42,16 @@ ActiveRecord::Schema.define(:version => 20121219150442) do
     t.text     "content"
     t.integer  "topics_count",   :default => 0
     t.integer  "messages_count", :default => 0
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.datetime "deleted_at"
     t.string   "slug"
     t.integer  "updater_id"
     t.integer  "position"
-    t.integer  "follows_count",  :default => 0, :null => false
+    t.integer  "follows_count",  :default => 0,        :null => false
     t.integer  "parent_id"
+    t.string   "reader",         :default => "banned"
+    t.string   "writer",         :default => "user"
   end
 
   add_index "forums", ["deleted_at"], :name => "index_forums_on_deleted_at"

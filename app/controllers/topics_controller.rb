@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  authorize_resource
+  authorize_resource :except => [:show]
   before_filter :authenticate_user!, :except => [:show]
 
   # GET /topics
@@ -25,6 +25,7 @@ class TopicsController < ApplicationController
         render_404
       end
     end
+    authorize! :read, @topic
 
     if params.has_key? :newest
       m_id = current_user.bookmarks.where(topic_id: @topic.id).first.message_id
