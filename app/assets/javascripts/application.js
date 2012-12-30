@@ -16,6 +16,7 @@
 //= require jquery.sew
 //= require jquery.tablednd
 //= require textarea.jquery
+//= require garlic
 //= require bootstrap
 //= require markdown-toolbar
 //= require gritter
