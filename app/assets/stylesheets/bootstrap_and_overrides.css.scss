@@ -27,6 +27,27 @@ hr { clear: both; margin-top: 0; border-bottom: 1px #EEE solid;}
   }
 }
 
+.nav-collapse .navbar-search {
+  padding: 0 15px;
+  border: 0;
+  box-shadow: none;
+}
+
+.navbar .btn,
+.navbar .btn-navbar:hover,
+.navbar .btn-navbar:active,
+.navbar .btn-navbar.active,
+.navbar .btn-navbar.disabled,
+.navbar .btn-navbar[disabled],
+.navbar .btn-nav-bar {
+  background: none !important;
+}
+
+.nav-collapse .nav > li > a:hover,
+.nav-collapse .dropdown-menu a:hover {
+  background-color: transparent;
+}
+
 .navbar .nav li.dropdown.open > .dropdown-toggle,
 .navbar .nav li.dropdown.active > .dropdown-toggle,
 .navbar .nav li.dropdown.open.active > .dropdown-toggle {
