@@ -27,8 +27,7 @@ class TopicsController < ApplicationController
     end
     authorize! :read, @topic
 
-    if params.has_key? :newest
-      m_id = current_user.bookmarks.where(topic_id: @topic.id).first.message_id
+    if params.has_key?(:newest) && m_id = current_user.bookmarks.where(topic_id: @topic.id).first.try(&:message_id)
       nb = Message.where(topic_id: @topic.id).where('id <= ?', m_id).count
       page = (nb.to_f / Message::PER_PAGE).ceil
       return redirect_to topic_url(@topic, page: page > 1 ? page : nil, anchor: "m#{m_id}")
