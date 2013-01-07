@@ -27,13 +27,13 @@
                 %i.icon-circle-arrow-right{ title: t('common.pinned') }
         %td
           - if current_user && topic.bookmarked_id && topic.bookmarked_id < topic.last_message_id
-            = link_to topic_path(topic) + "?newest" do
-              %p.title
+            = link_to topic_path(topic) + "?newest", :class => :title do
+              %p
                 %i.icon-bookmark{title: t('.new_messages')}
                 = topic.name
           - else
-            = link_to topic do
-              %p.title= topic.name
+            = link_to topic, :class => :title do
+              %p= topic.name
           - unless @folded
             %p
               - if @forum && topic.forum_id != @forum.id
