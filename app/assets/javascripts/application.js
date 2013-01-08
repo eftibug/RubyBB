@@ -44,16 +44,6 @@ $(document).ready(function() {
     }
   });
 
-  // notifications
-
-  $('a.delete_notification').bind('ajax:beforeSend', function(){
-    $(this).parents('tr').hide('slow');
-  });
-
-  $('a.read_notification').bind('ajax:beforeSend', function(){
-    $(this).parents('tr').removeClass('unread');
-  });
-
   // small messages
 
   $(document).on('ajax:beforeSend', 'a.delete_small_message', function(){
