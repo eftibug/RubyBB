@@ -1,7 +1,5 @@
 # encoding: utf-8
 class User < ActiveRecord::Base
-  include Redirectable
-
   has_many :roles, :dependent => :destroy
   has_many :topics
   has_many :messages
@@ -15,7 +13,7 @@ class User < ActiveRecord::Base
   scope :followed_by, lambda { |user| select('follows.id as follow_id').joins("JOIN follows ON followable_id = users.id AND followable_type = 'User' AND follows.user_id = #{user.try(:id)}") if user }
 
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:slugged, :history]
 
   acts_as_paranoid
   paginates_per 25

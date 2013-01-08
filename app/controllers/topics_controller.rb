@@ -16,14 +16,9 @@ class TopicsController < ApplicationController
   # GET /topics/1
   # GET /topics/1.json
   def show
-    begin
-      @topic = Topic.select('topics.*').with_follows(current_user).find(params[:id])
-    rescue
-      if r = Redirection.where(redirectable_type: 'Topic', slug: params[:id]).first
-        return redirect_to r.redirectable, :status => :moved_permanently
-      else
-        render_404
-      end
+    @topic = Topic.select('topics.*').with_follows(current_user).find(params[:id]) || render_404
+    if request.path != topic_path(@topic)
+      return redirect_to @topic, :status => :moved_permanently
     end
     authorize! :read, @topic
 

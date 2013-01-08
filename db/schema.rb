@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121223123810) do
+ActiveRecord::Schema.define(:version => 20130108143801) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -60,6 +60,17 @@ ActiveRecord::Schema.define(:version => 20121223123810) do
   add_index "forums", ["slug"], :name => "index_forums_on_slug", :unique => true
   add_index "forums", ["updater_id"], :name => "index_forums_on_updater_id"
 
+  create_table "friendly_id_slugs", :force => true do |t|
+    t.string   "slug",                         :null => false
+    t.integer  "sluggable_id",                 :null => false
+    t.string   "sluggable_type", :limit => 40
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
+  add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
+
   create_table "messages", :force => true do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -89,17 +100,6 @@ ActiveRecord::Schema.define(:version => 20121223123810) do
   add_index "notifications", ["message_id"], :name => "index_notifications_on_message_id"
   add_index "notifications", ["read"], :name => "index_notifications_on_read"
   add_index "notifications", ["user_id"], :name => "index_notifications_on_user_id"
-
-  create_table "redirections", :force => true do |t|
-    t.string   "redirectable_type"
-    t.integer  "redirectable_id"
-    t.string   "slug"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
-
-  add_index "redirections", ["redirectable_type"], :name => "index_redirections_on_redirectable_type"
-  add_index "redirections", ["slug"], :name => "index_redirections_on_slug"
 
   create_table "roles", :force => true do |t|
     t.string   "name"

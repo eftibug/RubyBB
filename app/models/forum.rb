@@ -1,10 +1,8 @@
 class Forum < ActiveRecord::Base
-  include Redirectable
-
   default_scope order(:position, :parent_id, :slug)
 
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:slugged, :history]
 
   acts_as_paranoid
   has_many :children, :class_name => 'Forum', :foreign_key => 'parent_id'

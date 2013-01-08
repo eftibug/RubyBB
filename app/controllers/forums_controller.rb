@@ -17,14 +17,9 @@ class ForumsController < ApplicationController
   # GET /forums/1
   # GET /forums/1.json
   def show
-    begin
-      @forum = Forum.select('forums.*').with_follows(current_user).includes(:children).find(params[:id])
-    rescue
-      if r = Redirection.where(redirectable_type: 'Forum', slug: params[:id]).first
-        return redirect_to r.redirectable, :status => :moved_permanently
-      else
-        render_404
-      end
+    @forum = Forum.select('forums.*').with_follows(current_user).includes(:children).find(params[:id]) || render_404
+    if request.path != forum_path(@forum)
+      return redirect_to @forum, :status => :moved_permanently
     end
     authorize! :read, @forum
 
