@@ -19,6 +19,7 @@ en:
     title: RubyBB
     read: 'read'
     description: "RubyBB is a free and open source Ruby on Rails forum software under BSD license"
+    back: back
     by: by
     in: in
     stats: Stats

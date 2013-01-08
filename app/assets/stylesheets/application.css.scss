@@ -9,7 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  * require_self
- *= require markdown-toolbar
  *= require gritter
  *= require_tree .
  */
@@ -22,8 +21,7 @@ body {
   font-size: 13px;
 }
 td a.title { color: #000; }
-a, .meta a, .user a { color: $theme; }
-a:hover { color: $theme; }
+a, .btn-link, .btn-link:hover, .meta a, .user a, a:hover { color: $theme; }
 h1 .btn-group { float: right; }
 h1 .btn { font-weight: normal; }
 
