@@ -2,6 +2,7 @@
 - if true
 
   - content_for :title, raw(@topic.name)
+  = auto_discovery_link_tag(:rss, :format => 'rss')
 
   %h1
     = t('.title', name: @topic.name)

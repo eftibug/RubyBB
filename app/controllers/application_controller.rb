@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+
   protect_from_forgery
   before_filter :update_current_user, :if => :current_user
 

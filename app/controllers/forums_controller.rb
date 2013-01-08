@@ -1,6 +1,6 @@
 class ForumsController < ApplicationController
-  authorize_resource :except => [:show]
-  before_filter :authenticate_user!, :except => [:index, :show]
+  authorize_resource :except => [:show, :feed]
+  before_filter :authenticate_user!, :except => [:index, :show, :feed]
   before_filter :get_stats, :only => :index
 
   # GET /forums
@@ -14,10 +14,20 @@ class ForumsController < ApplicationController
     end
   end
 
+  def feed
+    @forum = Forum.includes(:children).find(params[:id])
+    authorize! :read, @forum
+    @topics = Topic.includes(:user).where(:forum_id => @forum.children.map(&:id) << @forum.id).order('topics.id desc').limit(10)
+
+    respond_to do |format|
+      format.rss { render :layout => false }
+    end
+  end
+
   # GET /forums/1
   # GET /forums/1.json
   def show
-    @forum = Forum.select('forums.*').with_follows(current_user).includes(:children).find(params[:id]) || render_404
+    @forum = Forum.select('forums.*').with_follows(current_user).includes(:children).find(params[:id])
     if request.path != forum_path(@forum)
       return redirect_to @forum, :status => :moved_permanently
     end

@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
-  authorize_resource :except => [:show]
-  before_filter :authenticate_user!, :except => [:show]
+  authorize_resource :except => [:show, :feed]
+  before_filter :authenticate_user!, :except => [:show, :feed]
 
   # GET /topics
   # GET /topics.json
@@ -13,16 +13,26 @@ class TopicsController < ApplicationController
     end
   end
 
+  def feed
+    @topic = Topic.includes(:user).find(params[:id])
+    authorize! :read, @topic
+    @messages = @topic.messages.includes(:user).order('messages.id desc').limit(10)
+
+    respond_to do |format|
+      format.rss { render :layout => false }
+    end
+  end
+
   # GET /topics/1
   # GET /topics/1.json
   def show
-    @topic = Topic.select('topics.*').with_follows(current_user).find(params[:id]) || render_404
+    @topic = Topic.select('topics.*').with_follows(current_user).find(params[:id])
     if request.path != topic_path(@topic)
       return redirect_to @topic, :status => :moved_permanently
     end
     authorize! :read, @topic
 
-    if params.has_key?(:newest) && m_id = current_user.bookmarks.where(topic_id: @topic.id).first.try(&:message_id)
+    if (params.has_key?(:newest) && m_id = current_user.bookmarks.where(topic_id: @topic.id).first.try(&:message_id)) || (m_id = params[:goto])
       nb = Message.where(topic_id: @topic.id).where('id <= ?', m_id).count
       page = (nb.to_f / Message::PER_PAGE).ceil
       return redirect_to topic_url(@topic, page: page > 1 ? page : nil, anchor: "m#{m_id}")

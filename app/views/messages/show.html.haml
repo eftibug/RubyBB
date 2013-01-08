@@ -1,18 +1,4 @@
-%p#notice= notice
-
-%p
-  %b Content:
-  = @message.content
-%p
-  %b User:
-  = @message.user
-%p
-  %b Topic:
-  = @message.topic
-%p
-  %b Forum:
-  = @message.forum
-
-= link_to 'Edit', edit_message_path(@message)
-\|
-= link_to 'Back', messages_path
+- content_for :title, raw(@topic.name)
+%h1= t('topics.show.title', name: @topic.name)
+= render 'topics/breadcrumb', topic: @topic, buttons: false
+= render 'list'

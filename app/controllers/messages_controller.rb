@@ -26,12 +26,8 @@ class MessagesController < ApplicationController
   # GET /messages/1
   # GET /messages/1.json
   def show
-    @message = Message.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @message }
-    end
+    @message = Message.includes(:topic).find(params[:id])
+    redirect_to topic_url(@message.topic, goto: @message.id)
   end
 
   # GET /messages/new

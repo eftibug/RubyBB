@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = User.select('users.*').with_follows(current_user).find(params[:id]) || render_404
+    @user = User.select('users.*').with_follows(current_user).find(params[:id])
     if request.path != user_path(@user)
       return redirect_to @user, :status => :moved_permanently
     end

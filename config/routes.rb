@@ -2,17 +2,21 @@ RubyBB::Application.routes.draw do
 
   root :to => 'forums#index'
 
-  resources :topics do
+  resources :topics, :except => :show do
     member do
       put 'pin' => :pin
     end
   end
+  get '/topics/:id.:format' => 'topics#feed', :format => :rss
+  get '/topics/:id' => 'topics#show'
 
-  resources :forums do
+  resources :forums, :except => :show do
     collection do
       put 'position' => :position
     end
   end
+  get '/forums/:id.:format' => 'forums#feed', :format => :rss
+  get '/forums/:id' => 'forums#show'
 
   as :user do
     get 'register' => 'devise/registrations#new', :as => :new_user_registration
