@@ -2,7 +2,7 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :content, :required => true, :input_html => {:rows => 15, :class => 'input-xxlarge markdown-toolbar'}
+    = render 'messages/textarea', f: f
     = f.input :topic_id, :as => :hidden
 
   .form-actions

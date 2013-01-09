@@ -27,7 +27,7 @@
         = user.gender if user.gender
       %td.hidden-phone
         = user.location if user.location
-      %td.hidden-phone
+      %td.url.hidden-phone
         = link_to user.website, user.website, rel: :nofollow if user.website
       %td.number.hidden-phone= user.topics_count
       %td.number= user.messages_count

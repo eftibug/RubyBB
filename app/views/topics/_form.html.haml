@@ -9,7 +9,7 @@
       -else
         .hidden= f.association :forum
       = f.simple_fields_for :messages do |m|
-        = m.input :content, :input_html => {:rows => 15, :class => 'input-xxlarge markdown-toolbar'}
+        = render 'messages/textarea', f: m
     - else
       = f.association :forum, :include_blank => false
 
