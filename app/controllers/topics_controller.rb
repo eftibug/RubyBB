@@ -73,7 +73,7 @@ class TopicsController < ApplicationController
 
   # GET /topics/1/edit
   def edit
-    @topic = Topic.includes(:forum => :children).find(params[:id])
+    @topic = Topic.includes(:forum).find(params[:id])
   end
 
   # POST /topics
