@@ -42,8 +42,10 @@ class Message < ActiveRecord::Base
   end
 
   def update_parents
-    topic.update_column :last_message_id, id
-    topic.update_column :updater_id, user_id
+    topic.first_message_id = id unless topic.first_message_id
+    topic.last_message_id = id
+    topic.updater_id = user_id
+    topic.save
     forum.update_column :updater_id, user_id
     if forum.parent_id
       Forum.update_counters forum.parent_id, messages_count: 1

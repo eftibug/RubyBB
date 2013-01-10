@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130108143801) do
+ActiveRecord::Schema.define(:version => 20130110150614) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -141,20 +141,22 @@ ActiveRecord::Schema.define(:version => 20130108143801) do
     t.string   "name"
     t.integer  "user_id"
     t.integer  "forum_id"
-    t.integer  "messages_count",  :default => 0
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.integer  "messages_count",   :default => 0
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.datetime "deleted_at"
     t.string   "slug"
-    t.integer  "views_count",     :default => 0,     :null => false
+    t.integer  "views_count",      :default => 0,     :null => false
     t.integer  "viewer_id"
     t.integer  "updater_id"
     t.integer  "last_message_id"
-    t.boolean  "pinned",          :default => false
-    t.integer  "follows_count",   :default => 0,     :null => false
+    t.boolean  "pinned",           :default => false
+    t.integer  "follows_count",    :default => 0,     :null => false
+    t.integer  "first_message_id"
   end
 
   add_index "topics", ["deleted_at"], :name => "index_topics_on_deleted_at"
+  add_index "topics", ["first_message_id"], :name => "index_topics_on_first_message_id"
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
   add_index "topics", ["last_message_id"], :name => "index_topics_on_last_message_id"
   add_index "topics", ["pinned"], :name => "index_topics_on_pinned"

@@ -1,5 +1,5 @@
 class Topic < ActiveRecord::Base
-
+  include ActionView::Helpers
   extend FriendlyId
   friendly_id :name, use: [:slugged, :history]
 
@@ -8,6 +8,7 @@ class Topic < ActiveRecord::Base
 
   belongs_to :viewer, :class_name => 'User', :foreign_key => 'viewer_id'
   belongs_to :updater, :class_name => 'User', :foreign_key => 'updater_id'
+  belongs_to :first_message, :class_name => 'Message', :foreign_key => 'first_message_id'
   belongs_to :last_message, :class_name => 'Message', :foreign_key => 'last_message_id'
   belongs_to :user, :counter_cache => true
   belongs_to :forum, :counter_cache => true, :touch => true
@@ -30,6 +31,10 @@ class Topic < ActiveRecord::Base
   after_update :update_counters
   after_create :increment_parent_counters, :autofollow
   after_destroy :decrement_parent_counters
+
+  def preview
+    truncate(first_message.content, length: 100, separator: ' ', omission: '...')
+  end
 
   def last_page
     (messages_count.to_f / Message::PER_PAGE).ceil

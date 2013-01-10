@@ -17,7 +17,7 @@ class ForumsController < ApplicationController
   def feed
     @forum = Forum.includes(:children).find(params[:id])
     authorize! :read, @forum
-    @topics = Topic.includes(:user).where(:forum_id => @forum.children.map(&:id) << @forum.id).order('topics.id desc').limit(10)
+    @topics = Topic.includes(:user, :first_message).where(:forum_id => @forum.children.map(&:id) << @forum.id).order('topics.id desc').limit(10)
 
     respond_to do |format|
       format.rss { render :layout => false }
@@ -33,7 +33,7 @@ class ForumsController < ApplicationController
     end
     authorize! :read, @forum
 
-    @topics = Topic.select('topics.*').includes(:user, :updater).for_user(current_user).where(:forum_id => @forum.children.map(&:id) << @forum.id).order('topics.pinned desc, topics.updated_at desc').page(params[:page])
+    @topics = Topic.select('topics.*').includes(:user, :updater, :first_message).for_user(current_user).where(:forum_id => @forum.children.map(&:id) << @forum.id).order('topics.pinned desc, topics.updated_at desc').page(params[:page])
     @topics = @topics.includes(:forum) if @forum.children.any?
 
     @pinnable = true

@@ -11,6 +11,7 @@
 //= require markdown.editor
 //= require gritter
 //= require users
+//= require topics
 //= require forums
 //= require messages
 //= require highcharts

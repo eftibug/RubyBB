@@ -10,7 +10,7 @@ xml.rss :version => "2.0" do
     @topics.each do |topic|
       xml.item do
         xml.title "#{topic.name} #{t('common.by')} #{topic.user.try(&:name) || 'Anonymous'}"
-        xml.description truncate(topic.messages.first.content, length: 100, separator: ' ', omission: '...')
+        xml.description topic.preview
         xml.link topic_url(topic)
         xml.pubDate topic.updated_at.to_s(:rfc822)
       end
