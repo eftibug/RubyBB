@@ -26,6 +26,7 @@ class Message < ActiveRecord::Base
     indexes :id, :index => :not_analyzed
     indexes :content, :analyzer => 'snowball'
     indexes :topic, :as => 'topic.try(:name)', :analyzer => 'snowball'
+    indexes :forum, :as => 'forum.try(:name)', :analyzer => 'snowball'
     indexes :user, :as => 'user.try(:name)', :analyzer => 'snowball'
     indexes :at, :as => 'created_at', :type => 'date'
   end
