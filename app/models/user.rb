@@ -73,6 +73,21 @@ class User < ActiveRecord::Base
     user
   end
 
+  def self.find_for_google_oauth2(auth, signed_in_resource=nil)
+    user = User.where(:google => auth.uid).first
+    unless user
+      user = User.where(:google => nil, :email => auth.info.email).first
+      user.update_column :google, auth.uid if user
+    end
+    unless user
+      user = User.create(name: auth.info.name,
+        email: auth.info.email,
+        password: Devise.friendly_token[0,20]
+      )
+    end
+    user
+  end
+
   def age
     now = Time.now.utc.to_date
     now.year - birthdate.year - ((now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)) ? 0 : 1)
