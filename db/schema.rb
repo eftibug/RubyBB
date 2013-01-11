@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130111000949) do
+ActiveRecord::Schema.define(:version => 20130111012827) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -199,9 +199,17 @@ ActiveRecord::Schema.define(:version => 20130111000949) do
     t.datetime "last_post_at"
     t.string   "facebook"
     t.string   "google"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.integer  "failed_attempts",        :default => 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
   end
 
   add_index "users", ["birthdate"], :name => "index_users_on_birthdate"
+  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["created_at"], :name => "index_users_on_created_at"
   add_index "users", ["deleted_at"], :name => "index_users_on_deleted_at"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
@@ -214,6 +222,7 @@ ActiveRecord::Schema.define(:version => 20130111000949) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
   add_index "users", ["topics_count"], :name => "index_users_on_topics_count"
+  add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
   add_index "users", ["updated_at"], :name => "index_users_on_updated_at"
   add_index "users", ["website"], :name => "index_users_on_website"
 
