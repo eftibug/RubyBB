@@ -18,6 +18,7 @@ RubyBB::Application.routes.draw do
   get '/forums/:id.:format' => 'forums#feed', :format => :rss
   get '/forums/:id' => 'forums#show'
 
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   as :user do
     get 'register' => 'devise/registrations#new', :as => :new_user_registration
     post 'profile' => 'devise/registrations#create', :as => :user_registration

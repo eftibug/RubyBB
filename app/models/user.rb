@@ -44,7 +44,8 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
@@ -53,6 +54,23 @@ class User < ActiveRecord::Base
 
   def self.find_for_database_authentication(conditions={})
     self.where("name = ? or email = ?", conditions[:email], conditions[:email]).limit(1).first
+  end
+
+  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+    user = User.where(:facebook => auth.uid).first
+    unless user
+      user = User.where(:facebook => nil, :email => auth.info.email).first
+      user.update_column :facebook, auth.uid if user
+    end
+    unless user
+      user = User.create(
+        name: auth.extra.raw_info.name,
+        facebook: auth.uid,
+        email: auth.info.email,
+        password: Devise.friendly_token[0,20]
+      )
+    end
+    user
   end
 
   def age

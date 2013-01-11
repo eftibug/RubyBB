@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130110150614) do
+ActiveRecord::Schema.define(:version => 20130111000949) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -197,13 +197,17 @@ ActiveRecord::Schema.define(:version => 20130110150614) do
     t.integer  "notifications_count",    :default => 0
     t.integer  "follows_count",          :default => 0,     :null => false
     t.datetime "last_post_at"
+    t.string   "facebook"
+    t.string   "google"
   end
 
   add_index "users", ["birthdate"], :name => "index_users_on_birthdate"
   add_index "users", ["created_at"], :name => "index_users_on_created_at"
   add_index "users", ["deleted_at"], :name => "index_users_on_deleted_at"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["facebook"], :name => "index_users_on_facebook"
   add_index "users", ["gender"], :name => "index_users_on_gender"
+  add_index "users", ["google"], :name => "index_users_on_google"
   add_index "users", ["location"], :name => "index_users_on_location"
   add_index "users", ["messages_count"], :name => "index_users_on_messages_count"
   add_index "users", ["name"], :name => "index_users_on_name"
