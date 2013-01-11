@@ -129,6 +129,7 @@ en:
     index:
       title: Search results
     list:
+      quote: quote
       updated_by: "Updated by %{name} at %{date}"
       bot: "%{name} is a bot"
       human: "%{name} is a human"

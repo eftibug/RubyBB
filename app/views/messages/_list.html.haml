@@ -51,6 +51,8 @@
           %p{title: l(message.created_at)}= time_ago_in_words message.created_at
           - if current_user && !params[:q] && current_user.id != message.user_id
             = render 'follows/show', id: message.follow_id, followable_id: message.id, followable_type: 'Message'
+            - unless @as_notifications
+              %p.quote-that.btn-link{'data-user' => message.user.name, 'data-content' => message.content}= t('.quote')
 
   = paginate @messages
 - else

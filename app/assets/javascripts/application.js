@@ -21,20 +21,6 @@
 
 var values = [];
 $(document).ready(function() {
-  // Handle autocomplete and maxlength
-  $('textarea').sew({values: values}).textarea();
-
-  $wmd = $('#wmd-input');
-  if ($wmd.length) {
-    var converter = Markdown.getSanitizingConverter();
-    var editor = new Markdown.Editor(converter);
-    $wmd.keyup(function() {
-      $('.preview').show('fast');
-    });
-    editor.run();
-    $('.wmd-button').tooltip();
-  }
-
   // Does not submit forms twice
   $('form:not([data-remote])').submit(function(){
     $this = $(this);
