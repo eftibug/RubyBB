@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130111012827) do
+ActiveRecord::Schema.define(:version => 20130112125635) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(:version => 20130111012827) do
     t.integer  "messages_count", :default => 0
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
-    t.datetime "deleted_at"
     t.string   "slug"
     t.integer  "updater_id"
     t.integer  "position"
@@ -54,7 +53,6 @@ ActiveRecord::Schema.define(:version => 20130111012827) do
     t.string   "writer",         :default => "user"
   end
 
-  add_index "forums", ["deleted_at"], :name => "index_forums_on_deleted_at"
   add_index "forums", ["parent_id"], :name => "index_forums_on_parent_id"
   add_index "forums", ["position"], :name => "index_forums_on_position"
   add_index "forums", ["slug"], :name => "index_forums_on_slug", :unique => true
@@ -78,13 +76,11 @@ ActiveRecord::Schema.define(:version => 20130111012827) do
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
     t.integer  "forum_id",         :default => 0
-    t.datetime "deleted_at"
     t.text     "rendered_content"
     t.integer  "updater_id"
     t.integer  "follows_count",    :default => 0, :null => false
   end
 
-  add_index "messages", ["deleted_at"], :name => "index_messages_on_deleted_at"
   add_index "messages", ["topic_id"], :name => "index_messages_on_topic_id"
   add_index "messages", ["updater_id"], :name => "index_messages_on_updater_id"
   add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
@@ -144,7 +140,6 @@ ActiveRecord::Schema.define(:version => 20130111012827) do
     t.integer  "messages_count",   :default => 0
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
-    t.datetime "deleted_at"
     t.string   "slug"
     t.integer  "views_count",      :default => 0,     :null => false
     t.integer  "viewer_id"
@@ -155,7 +150,6 @@ ActiveRecord::Schema.define(:version => 20130111012827) do
     t.integer  "first_message_id"
   end
 
-  add_index "topics", ["deleted_at"], :name => "index_topics_on_deleted_at"
   add_index "topics", ["first_message_id"], :name => "index_topics_on_first_message_id"
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
   add_index "topics", ["last_message_id"], :name => "index_topics_on_last_message_id"
@@ -190,7 +184,6 @@ ActiveRecord::Schema.define(:version => 20130111012827) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.datetime "deleted_at"
     t.string   "slug"
     t.boolean  "human",                  :default => false
     t.boolean  "sysadmin",               :default => false
@@ -211,7 +204,6 @@ ActiveRecord::Schema.define(:version => 20130111012827) do
   add_index "users", ["birthdate"], :name => "index_users_on_birthdate"
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["created_at"], :name => "index_users_on_created_at"
-  add_index "users", ["deleted_at"], :name => "index_users_on_deleted_at"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["facebook"], :name => "index_users_on_facebook"
   add_index "users", ["gender"], :name => "index_users_on_gender"
@@ -225,5 +217,16 @@ ActiveRecord::Schema.define(:version => 20130111012827) do
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
   add_index "users", ["updated_at"], :name => "index_users_on_updated_at"
   add_index "users", ["website"], :name => "index_users_on_website"
+
+  create_table "versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
 end

@@ -43,6 +43,7 @@ class MessagesController < ApplicationController
 
   # GET /messages/1/edit
   def edit
+    @history = true
     @message = Message.find(params[:id])
   end
 

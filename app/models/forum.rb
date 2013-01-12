@@ -4,7 +4,6 @@ class Forum < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :history]
 
-  acts_as_paranoid
   has_many :children, :class_name => 'Forum', :foreign_key => 'parent_id'
   belongs_to :parent, :class_name => 'Forum', :foreign_key => 'parent_id'
   has_many :topics, :dependent => :destroy

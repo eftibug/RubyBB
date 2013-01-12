@@ -3,7 +3,7 @@ class Message < ActiveRecord::Base
   include Tire::Model::Callbacks
   include Spammable
 
-  acts_as_paranoid
+  has_paper_trail :only => [:content]
 
   PER_PAGE = 20
   paginates_per PER_PAGE

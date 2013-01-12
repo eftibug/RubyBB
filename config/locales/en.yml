@@ -128,8 +128,9 @@ en:
   messages:
     index:
       title: Search results
-    list:
+    show:
       quote: quote
+      use: use this
       updated_by: "Updated by %{name} at %{date}"
       bot: "%{name} is a bot"
       human: "%{name} is a human"

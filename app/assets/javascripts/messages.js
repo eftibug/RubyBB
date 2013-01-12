@@ -41,4 +41,8 @@ $(document).ready(function(){
       $wmd.val(quote + "\n\n");
     }
   });
+
+  $('.use-that').click(function(){
+    $wmd.val($(this).data('content'));
+  });
 });

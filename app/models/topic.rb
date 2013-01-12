@@ -3,7 +3,6 @@ class Topic < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :history]
 
-  acts_as_paranoid
   paginates_per 25
 
   belongs_to :viewer, :class_name => 'User', :foreign_key => 'viewer_id'

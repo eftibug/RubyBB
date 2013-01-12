@@ -3,3 +3,10 @@
 = render 'topics/breadcrumb', topic: @message.topic, buttons: false
 
 = render 'form'
+
+- if current_user.try(:sysadmin) && @message.versions.any?
+  %hr
+  %table.table.table-striped.messages
+    - @message.versions.includes(:item).each do |v|
+      = render 'show', message: v.reify
+    = render 'show', message: @message
