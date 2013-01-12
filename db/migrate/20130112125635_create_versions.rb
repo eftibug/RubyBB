@@ -1,5 +1,5 @@
 class CreateVersions < ActiveRecord::Migration
-  def change
+  def up
     remove_column :forums, :deleted_at 
     remove_column :topics, :deleted_at 
     remove_column :messages, :deleted_at 
@@ -13,5 +13,17 @@ class CreateVersions < ActiveRecord::Migration
       t.datetime :created_at
     end
     add_index :versions, [:item_type, :item_id]
+  end
+
+  def down
+    drop_table :versions
+    add_column :users, :deleted_at, :datetime
+    add_column :forums, :deleted_at, :datetime
+    add_column :topics, :deleted_at, :datetime
+    add_column :messages, :deleted_at, :datetime
+    add_index :forums, :deleted_at
+    add_index :topics, :deleted_at
+    add_index :messages, :deleted_at
+    add_index :users, :deleted_at
   end
 end
