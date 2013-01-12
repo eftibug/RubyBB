@@ -24,7 +24,6 @@ en:
     in: in
     stats: Stats
     staff: Staff
-    role: Role
     sysadmin: Sysadmin
     banned: Banned
     user: User

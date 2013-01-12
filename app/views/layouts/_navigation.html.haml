@@ -23,4 +23,5 @@
     - else
       %li= link_to t('.sign_up'), new_user_registration_path
       %li= link_to t('.login'), new_user_session_path
-  = render 'layouts/search'
+  - if current_user
+    = render 'layouts/search'

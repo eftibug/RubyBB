@@ -1,4 +1,4 @@
-- if current_user && buttons
+- if buttons && can?(:create, Follow.new)
   = render 'follows/show', id: topic.follow_id, followable_id: topic.id, followable_type: 'Topic'
 
 %ul.breadcrumb

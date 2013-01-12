@@ -1,6 +1,5 @@
 # encoding: utf-8
 class User < ActiveRecord::Base
-  has_many :roles, :dependent => :destroy
   has_many :topics
   has_many :messages
   has_many :bookmarks, :dependent => :destroy
@@ -94,37 +93,6 @@ class User < ActiveRecord::Base
 
   def shortname size = 8
     name.size > size ? name.split(' ')[0][0..size-1]+"…" : name
-  end
-
-  # Do not remove strict param, see views/users/show
-  def admin? forum_id = nil, strict = false
-    (!strict && sysadmin?) || roles.where(:forum_id => forum_id, :name => 'admin').limit(1).any?
-  end
-
-  def moderator? forum_id, strict = false
-    (!strict && sysadmin?) || roles.where(:forum_id => forum_id, :name => strict ? 'moderator' : ['admin', 'moderator']).limit(1).any?
-  end
-
-  def writer? forum_id, strict = false
-    (!strict && sysadmin?) || roles.where(:forum_id => forum_id, :name => strict ? 'writer' : ['admin', 'moderator', 'writer']).limit(1).any?
-  end
-
-  def reader? forum_id, strict = false
-    (!strict && sysadmin?) || roles.where(:forum_id => forum_id, :name => strict ? 'reader' : ['admin', 'moderator', 'writer', 'reader']).limit(1).any?
-  end
-
-  def user? forum_id, strict = false
-    roles.where(:forum_id => forum_id).limit(1).empty?
-  end
-
-  def banned? forum_id, strict = false
-    roles.where(:forum_id => forum_id, :name => 'banned').limit(1).any?
-  end
-
-  def role forum_id = nil
-    return :sysadmin if sysadmin?
-    return :user unless forum_id
-    roles.where(:forum_id => forum_id).limit(1).first.try(:name) || :user
   end
 
   def update_notifications_count

@@ -1,7 +1,8 @@
 - if buttons
-  = link_to t('.new_topic'), new_topic_path(forum_id: forum.id), class: 'btn in-breadcrumb' if can? :create, Topic.new(forum_id: forum.id)
+  - if can? :create, Topic.new(forum_id: forum.id)
+    = link_to t('.new_topic'), new_topic_path(forum_id: forum.id), class: 'btn in-breadcrumb'
 
-  - if current_user
+  - if can? :create, Follow.new
     = render 'follows/show', id: forum.follow_id, followable_id: forum.id, followable_type: 'Forum'
 
 %ul.breadcrumb

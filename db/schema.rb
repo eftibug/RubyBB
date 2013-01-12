@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130112125635) do
+ActiveRecord::Schema.define(:version => 20130112173232) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -42,15 +42,13 @@ ActiveRecord::Schema.define(:version => 20130112125635) do
     t.text     "content"
     t.integer  "topics_count",   :default => 0
     t.integer  "messages_count", :default => 0
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.string   "slug"
     t.integer  "updater_id"
     t.integer  "position"
-    t.integer  "follows_count",  :default => 0,        :null => false
+    t.integer  "follows_count",  :default => 0, :null => false
     t.integer  "parent_id"
-    t.string   "reader",         :default => "banned"
-    t.string   "writer",         :default => "user"
   end
 
   add_index "forums", ["parent_id"], :name => "index_forums_on_parent_id"
@@ -96,17 +94,6 @@ ActiveRecord::Schema.define(:version => 20130112125635) do
   add_index "notifications", ["message_id"], :name => "index_notifications_on_message_id"
   add_index "notifications", ["read"], :name => "index_notifications_on_read"
   add_index "notifications", ["user_id"], :name => "index_notifications_on_user_id"
-
-  create_table "roles", :force => true do |t|
-    t.string   "name"
-    t.integer  "user_id"
-    t.integer  "forum_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "roles", ["forum_id"], :name => "index_roles_on_forum_id"
-  add_index "roles", ["user_id"], :name => "index_roles_on_user_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false

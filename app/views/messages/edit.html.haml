@@ -4,7 +4,7 @@
 
 = render 'form'
 
-- if current_user.try(:sysadmin) && @message.versions.any?
+- if can?(:history, @message) && @message.versions.any?
   %hr
   %table.table.table-striped.messages
     - @message.versions.includes(:item).each do |v|

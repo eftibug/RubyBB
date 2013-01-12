@@ -12,7 +12,7 @@
     = javascript_include_tag "//#{request.host}:9292/faye.js"
     = csrf_meta_tags
     = yield(:head)
-    - if current_user
+    - if can? :read, Notification.new
       :javascript
         function link_to(text, href){ return '<a href="'+href+'">'+text+'</a>'; }
         $(document).ready(function() {
