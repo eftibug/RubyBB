@@ -19,9 +19,10 @@ class Topic < ActiveRecord::Base
   attr_accessible :name, :forum_id, :messages_attributes
 
   has_many :bookmarks, :dependent => :destroy
-  scope :for_user, lambda { |user| select('bookmarks.message_id as bookmarked_id').joins("LEFT JOIN bookmarks ON bookmarks.topic_id = topics.id AND bookmarks.user_id = #{user.try(:id)}") if user }
 
-  scope :only_for_user, lambda { |user| select('bookmarks.message_id as bookmarked_id').joins("JOIN bookmarks ON bookmarks.topic_id = topics.id AND bookmarks.message_id < topics.last_message_id AND bookmarks.user_id = #{user.try(:id)}") if user }
+  scope :with_bookmarks, lambda { |user| select('bookmarks.message_id as bookmarked_id').joins("LEFT JOIN bookmarks ON bookmarks.topic_id = topics.id AND bookmarks.user_id = #{user.try(:id)}") if user }
+
+  scope :bookmarked_by, lambda { |user| select('bookmarks.message_id as bookmarked_id').joins("JOIN bookmarks ON bookmarks.topic_id = topics.id AND bookmarks.message_id < topics.last_message_id AND bookmarks.user_id = #{user.try(:id)}") if user }
 
   scope :with_follows, lambda { |user| select('follows.id as follow_id').joins("LEFT JOIN follows ON followable_id = topics.id AND followable_type = 'Topic' AND follows.user_id = #{user.try(:id)}") if user }
 

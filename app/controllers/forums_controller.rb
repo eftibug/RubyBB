@@ -33,7 +33,7 @@ class ForumsController < ApplicationController
     end
     authorize! :read, @forum
 
-    @topics = Topic.select('topics.*').includes(:user, :updater, :first_message).for_user(current_user).where(:forum_id => @forum.children.map(&:id) << @forum.id).order('topics.pinned desc, topics.updated_at desc').page(params[:page])
+    @topics = Topic.select('topics.*').includes(:user, :updater, :first_message).with_bookmarks(current_user).where(:forum_id => @forum.children.map(&:id) << @forum.id).order('topics.pinned desc, topics.updated_at desc').page(params[:page])
     @topics = @topics.includes(:forum) if @forum.children.any?
 
     @pinnable = true
