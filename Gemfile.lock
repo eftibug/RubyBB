@@ -53,6 +53,7 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
+    diff-lcs (1.1.3)
     em-http-request (1.0.3)
       addressable (>= 2.2.3)
       cookiejar
@@ -65,6 +66,9 @@ GEM
     eventmachine (1.0.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    faker (1.1.2)
+      i18n (~> 0.5)
+    fakeweb (1.3.0)
     faraday (0.8.4)
       multipart-post (~> 1.1)
     faye (0.8.6)
@@ -141,6 +145,7 @@ GEM
       cocaine (~> 0.4.0)
       mime-types
     polyglot (0.3.3)
+    populator (1.0.0)
     rack (1.4.3)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -169,6 +174,17 @@ GEM
     redcarpet (2.2.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rspec-core (2.12.2)
+    rspec-expectations (2.12.1)
+      diff-lcs (~> 1.1.3)
+    rspec-mocks (2.12.1)
+    rspec-rails (2.12.2)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 2.12.0)
+      rspec-expectations (~> 2.12.0)
+      rspec-mocks (~> 2.12.0)
     sass (3.2.5)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -216,11 +232,12 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   dalli
   devise
+  faker
+  fakeweb
   faye
   friendly_id
   gravtastic
   gritter
-  haml (>= 3.0.0)
   haml-rails
   highcharts-rails
   jquery-rails
@@ -232,8 +249,10 @@ DEPENDENCIES
   pagedown-rails
   paper_trail
   paperclip
+  populator
   rails (= 3.2.11)
   redcarpet
+  rspec-rails
   sass-rails (~> 3.2.3)
   simple_form
   thin

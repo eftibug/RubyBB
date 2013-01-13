@@ -17,12 +17,18 @@ group :development do
   gem 'bullet'
 end
 
+group :test do
+  gem 'rspec-rails'
+  gem 'populator'
+  gem 'faker'
+  gem 'fakeweb'
+end
+
 # Deploy with Capistrano
 # gem 'capistrano'
 
 # To use debugger
 # gem 'debugger'
-
 
 gem 'bootstrap-sass'
 gem 'cancan'
@@ -32,7 +38,6 @@ gem 'faye'
 gem 'friendly_id'
 gem 'gravtastic'
 gem 'gritter'
-gem 'haml', '>= 3.0.0'
 gem 'haml-rails'
 gem 'highcharts-rails'
 gem 'jquery-rails'
