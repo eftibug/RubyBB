@@ -7,6 +7,7 @@
 - if can?(:history, @message) && @message.versions.any?
   %hr
   %table.table.table-striped.messages
-    - @message.versions.includes(:item).each do |v|
-      = render 'show', message: v.reify
+    - if @message.versions.count > 1
+      - @message.versions.includes(:item).each do |v|
+        = render 'show', message: v.reify
     = render 'show', message: @message
