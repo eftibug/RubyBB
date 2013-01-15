@@ -18,10 +18,11 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails'
-  gem 'populator'
+  gem 'capybara'
   gem 'faker'
   gem 'fakeweb'
+  gem 'populator'
+  gem 'rspec-rails'
 end
 
 # Deploy with Capistrano

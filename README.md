@@ -9,7 +9,7 @@ A ruby bulletin board
     sudo apt-get install python-software-properties
     sudo add-apt-repository ppa:chris-lea/node.js
     sudo apt-get update
-    sudo apt-get install memcached imagemagick libmysqld-dev nodejs curl git-core build-essential zlib1g-dev libssl-dev libreadline6-dev gem libyaml-dev
+    sudo apt-get install libxslt1-dev memcached imagemagick libmysqld-dev nodejs curl git-core build-essential zlib1g-dev libssl-dev libreadline6-dev gem libyaml-dev
 
 ### Ruby 1.9 with RVM
 
@@ -23,6 +23,7 @@ A ruby bulletin board
     gem install mysql2
     gem install bundler
     gem install rails
+    gem install nokogiri
 
 ### Fork, git clone and config
 
