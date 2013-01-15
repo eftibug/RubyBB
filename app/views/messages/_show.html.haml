@@ -38,7 +38,7 @@
       - if !message.notification_read?
         %p.hidden= link_to t('common.read'), notification_path(message.notification_id), method: :put, rel: :nofollow, remote: true, class: 'read_notification'
     %p{title: l(message.created_at)}= time_ago_in_words message.created_at
-    - if can?(:create, Follow.new) && !params[:q] && current_user.try(:id) != message.user_id
+    - if can?(:create, Follow.new) && !params[:q] && current_user.try(:id) != message.user_id && !@history
       = render 'follows/show', id: message.follow_id, followable_id: message.id, followable_type: 'Message'
       - unless @as_notifications
         %p.quote-that.btn-link{'data-user' => message.user.name, 'data-content' => message.content}= t('.quote')
