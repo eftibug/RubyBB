@@ -3,6 +3,7 @@ FactoryGirl.define do
     name { Faker::Name.name }
     email { Faker::Internet.email }
     password 'password'
+    human true
 
     factory :admin do
       sysadmin true
@@ -27,7 +28,6 @@ FactoryGirl.define do
     forum
     topic
     content { Faker::Lorem.paragraph }
-    rendered_content { "<p>#{content}</p>" }
   end
 
   factory :small_message do

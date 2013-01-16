@@ -32,6 +32,7 @@
           = simple_form_for SmallMessage.new(message_id: message.id), remote: true, html: { id: "new_small_message-#{message.id}" } do |f|
             = f.input :content
             = f.input :message_id, as: :hidden
+            = f.submit class: 'hidden'
   %td.ago.hidden-portrait-phone.meta
     - if @as_notifications
       %p= link_to t('common.remove'), notification_path(message.notification_id), method: :delete, rel: :nofollow, remote: true, class: 'delete_notification'

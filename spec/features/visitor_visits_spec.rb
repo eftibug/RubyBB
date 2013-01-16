@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature 'Visitor visits' do
-  scenario 'forums index, topics and messages' do
+  scenario 'forums, topics and then messages' do
     forum = create :forum
     topic = create :topic, forum: forum
     message = topic.messages.first
@@ -16,7 +16,7 @@ feature 'Visitor visits' do
     expect(page).to have_content(small_message.content)
   end
 
-  scenario 'users index and a profile' do
+  scenario 'users and then a profile' do
     user = create :user
 
     visit users_path
