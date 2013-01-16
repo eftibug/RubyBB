@@ -15,7 +15,7 @@ feature 'Visitor signs up' do
     page.should have_content('Register')
   end
 
-  scenario 'with invalid email' do
+  scenario 'with invalid email (should fail)' do
     sign_up_with name: 'Test2',
       email: 'invalid',
       password: 'password',
@@ -23,7 +23,7 @@ feature 'Visitor signs up' do
     page.should have_content('Register')
   end
 
-  scenario 'with blank password' do
+  scenario 'with blank password (should fail)' do
     sign_up_with name: 'Test3',
       email: 'valid@example.com',
       password: '',
@@ -31,7 +31,7 @@ feature 'Visitor signs up' do
     page.should have_content('Register')
   end 
 
-  scenario 'with invalid password confirmation' do
+  scenario 'with invalid password confirmation (should fail)' do
     sign_up_with name: 'Test4',
       email: 'valid@example.com',
       password: 'password',

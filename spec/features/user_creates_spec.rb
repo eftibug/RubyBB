@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'User posts' do
+feature 'User creates' do
   [:user, :admin].each do |role|
     scenario "a topic as #{role}" do
       forum = create :forum
@@ -27,7 +27,7 @@ feature 'User posts' do
       page.should have_content('Check me')
     end
 
-    scenario "a small_message as #{role}" do
+    scenario "a small message as #{role}" do
       topic = create :topic
       user = sign_in(role)
 
@@ -37,5 +37,22 @@ feature 'User posts' do
       page.should have_content(user.name)
       page.should have_content('Hi!')
     end
+  end
+
+  scenario "a forum as user (should fail)" do
+    user = sign_in
+    visit forums_path
+    page.should_not have_xpath "//a[@href='#{new_forum_path}']"
+    visit new_forum_path
+    page.should_not have_xpath "//form[@action='#{forums_path}']"
+  end
+
+  scenario "a forum as admin" do
+    user = sign_in(:admin)
+    visit forums_path
+    page.all(:xpath, "//a[@href='#{new_forum_path}']").first.click
+    fill_in 'Title', with: 'My forum'
+    click_on 'Create Forum'
+    page.should have_content('My forum')
   end
 end

@@ -1,5 +1,4 @@
 class MessagesController < ApplicationController
-  authorize_resource
   before_filter :authenticate_user!
 
   # GET /messages
@@ -27,6 +26,7 @@ class MessagesController < ApplicationController
   # GET /messages/1.json
   def show
     @message = Message.includes(:topic).find(params[:id])
+    authorize! :read, @message
     redirect_to topic_url(@message.topic, goto: @message.id)
   end
 
@@ -34,6 +34,7 @@ class MessagesController < ApplicationController
   # GET /messages/new.json
   def new
     @message = Message.new topic_id: params[:topic_id]
+    authorize! :create, @message
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,8 +44,9 @@ class MessagesController < ApplicationController
 
   # GET /messages/1/edit
   def edit
-    @history = true
     @message = Message.find(params[:id])
+    authorize! :update, @message
+    @history = true
   end
 
   # POST /messages
@@ -53,6 +55,7 @@ class MessagesController < ApplicationController
     @message = Message.new(params[:message])
     @message.user_id = current_user.id
     @message.forum_id = Topic.find(params[:message][:topic_id]).forum_id
+    authorize! :create, @message
 
     respond_to do |format|
       if @message.save
@@ -70,6 +73,7 @@ class MessagesController < ApplicationController
   def update
     @message = Message.find(params[:id])
     @message.updater_id = current_user.id
+    authorize! :update, @message
 
     respond_to do |format|
       if @message.update_attributes(params[:message])
@@ -86,6 +90,7 @@ class MessagesController < ApplicationController
   # DELETE /messages/1.json
   def destroy
     @message = Message.find(params[:id])
+    authorize! :destroy, @message
     if(@message == @message.topic.messages.first)
       r = forum_url(@message.forum)
       @message.topic.destroy

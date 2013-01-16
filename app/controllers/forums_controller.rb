@@ -1,5 +1,4 @@
 class ForumsController < ApplicationController
-  authorize_resource :except => [:show, :feed]
   before_filter :authenticate_user!, :except => [:index, :show, :feed]
   before_filter :get_stats, :only => :index
 
@@ -47,6 +46,7 @@ class ForumsController < ApplicationController
   # GET /forums/new.json
   def new
     @forum = Forum.new
+    authorize! :create, @forum
 
     respond_to do |format|
       format.html # new.html.erb
@@ -57,12 +57,14 @@ class ForumsController < ApplicationController
   # GET /forums/1/edit
   def edit
     @forum = Forum.find(params[:id])
+    authorize! :update, @forum
   end
 
   # POST /forums
   # POST /forums.json
   def create
     @forum = Forum.new(params[:forum])
+    authorize! :create, @forum
     if @forum.parent_id
       @forum.position = @forum.parent.position
       @forum.parent.touch
@@ -81,6 +83,7 @@ class ForumsController < ApplicationController
 
   # PUT /forums/position
   def position
+    authorize! :position, Forum.new
     i = 1
     params[:forums].each do |f|
       if f.present?
@@ -101,6 +104,7 @@ class ForumsController < ApplicationController
   # PUT /forums/1.json
   def update
     @forum = Forum.find(params[:id])
+    authorize! :update, @forum
 
     respond_to do |format|
       if @forum.update_attributes(params[:forum])
@@ -117,6 +121,7 @@ class ForumsController < ApplicationController
   # DELETE /forums/1.json
   def destroy
     @forum = Forum.find(params[:id])
+    authorize! :destroy, @forum
     @forum.destroy
 
     respond_to do |format|

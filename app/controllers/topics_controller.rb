@@ -1,5 +1,4 @@
 class TopicsController < ApplicationController
-  authorize_resource :except => [:show, :feed]
   before_filter :authenticate_user!, :except => [:show, :feed]
 
   # GET /topics
@@ -64,6 +63,7 @@ class TopicsController < ApplicationController
   def new
     @topic = Topic.new forum_id: params[:forum_id]
     @topic.messages.build
+    authorize! :create, @topic
 
     respond_to do |format|
       format.html # new.html.erb
@@ -74,6 +74,7 @@ class TopicsController < ApplicationController
   # GET /topics/1/edit
   def edit
     @topic = Topic.includes(:forum).find(params[:id])
+    authorize! :update, @topic
   end
 
   # POST /topics
@@ -85,6 +86,7 @@ class TopicsController < ApplicationController
     message = @topic.messages.first
     message.user_id = current_user.id
     message.forum_id = params[:topic][:forum_id]
+    authorize! :create, @topic
 
     respond_to do |format|
       if @topic.save
@@ -100,6 +102,7 @@ class TopicsController < ApplicationController
   # PUT /topics/1/pin
   def pin
     @topic = Topic.find(params[:id])
+    authorize! :pin, @topic
     @topic.update_column :pinned, !@topic.pinned
     respond_to do |format|
       format.html { redirect_to forum_url(@topic.forum), notice: 'Topic was successfully updated.' }
@@ -112,6 +115,7 @@ class TopicsController < ApplicationController
   def update
     params[:topic].delete :messages_attributes
     @topic = Topic.find(params[:id])
+    authorize! :update, @topic
 
     respond_to do |format|
       if @topic.update_attributes(params[:topic])
@@ -128,6 +132,7 @@ class TopicsController < ApplicationController
   # DELETE /topics/1.json
   def destroy
     @topic = Topic.find(params[:id])
+    authorize! :destroy, @topic
     forum = @topic.forum
     @topic.destroy
 

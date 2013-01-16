@@ -17,7 +17,7 @@ FactoryGirl.define do
   factory :topic do
     user
     forum
-    name { Faker::Lorem.sentence(3) }
+    name { Faker::Lorem.sentence(2) }
     after :create do |topic, evaluator|
       FactoryGirl.create_list(:message, 1, topic: topic, user: evaluator.user, forum: evaluator.forum)
     end
@@ -35,6 +35,6 @@ FactoryGirl.define do
     forum
     topic
     message
-    content { Faker::Lorem.sentence(3) }
+    content { Faker::Lorem.sentence(2) }
   end
 end

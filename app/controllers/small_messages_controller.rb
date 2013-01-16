@@ -1,5 +1,4 @@
 class SmallMessagesController < ApplicationController
-  authorize_resource
   before_filter :authenticate_user!
 
   # GET /small_messages
@@ -17,6 +16,7 @@ class SmallMessagesController < ApplicationController
   # GET /small_messages/1.json
   def show
     @small_message = SmallMessage.find(params[:id])
+    authorize! :read, @small_message
 
     respond_to do |format|
       format.html # show.html.erb
@@ -28,6 +28,7 @@ class SmallMessagesController < ApplicationController
   # GET /small_messages/new.json
   def new
     @small_message = SmallMessage.new
+    authorize! :create, @small_message
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,6 +39,7 @@ class SmallMessagesController < ApplicationController
   # GET /small_messages/1/edit
   def edit
     @small_message = SmallMessage.find(params[:id])
+    authorize! :update, @small_message
   end
 
   # POST /small_messages
@@ -48,6 +50,7 @@ class SmallMessagesController < ApplicationController
     @small_message.user_id = current_user.id
     @small_message.topic_id = message.topic_id
     @small_message.forum_id = message.forum_id
+    authorize! :create, @small_message
 
     respond_to do |format|
       if @small_message.save
@@ -66,6 +69,7 @@ class SmallMessagesController < ApplicationController
   # PUT /small_messages/1.json
   def update
     @small_message = SmallMessage.find(params[:id])
+    authorize! :update, @small_message
 
     respond_to do |format|
       if @small_message.update_attributes(params[:small_message])
@@ -82,6 +86,7 @@ class SmallMessagesController < ApplicationController
   # DELETE /small_messages/1.json
   def destroy
     @small_message = SmallMessage.find(params[:id])
+    authorize! :destroy, @small_message
     topic = @small_message.topic
     message_id = @small_message.message_id
     @small_message.destroy
