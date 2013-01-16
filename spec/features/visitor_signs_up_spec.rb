@@ -1,18 +1,18 @@
 require 'spec_helper'
 
 feature 'Visitor signs up' do
-  scenario 'with valid email and password and then logout' do
+  scenario 'with valid email and password' do
     sign_up_with name: 'Test1',
       email: 'valid@example.com',
       password: 'password',
       password_confirmation: 'password'
-    expect(page).to have_content('Test1')
+    page.should have_content('Test1')
   end
 
   scenario 'and then signs out' do
     sign_in
     page.find(:xpath, "//a[@href='#{destroy_user_session_path}']").click
-    expect(page).to have_content('Register')
+    page.should have_content('Register')
   end
 
   scenario 'with invalid email' do
@@ -20,7 +20,7 @@ feature 'Visitor signs up' do
       email: 'invalid',
       password: 'password',
       password_confirmation: 'password'
-    expect(page).to have_content('Register')
+    page.should have_content('Register')
   end
 
   scenario 'with blank password' do
@@ -28,7 +28,7 @@ feature 'Visitor signs up' do
       email: 'valid@example.com',
       password: '',
       password_confirmation: ''
-    expect(page).to have_content('Register')
+    page.should have_content('Register')
   end 
 
   scenario 'with invalid password confirmation' do
@@ -36,6 +36,6 @@ feature 'Visitor signs up' do
       email: 'valid@example.com',
       password: 'password',
       password_confirmation: 'wordpass'
-    expect(page).to have_content('Register')
+    page.should have_content('Register')
   end 
 end

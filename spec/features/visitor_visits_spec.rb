@@ -1,27 +1,39 @@
 require 'spec_helper'
 
 feature 'Visitor visits' do
-  scenario 'forums, topics and then messages' do
+  scenario 'forums index' do
     forum = create :forum
-    topic = create :topic, forum: forum
-    message = topic.messages.first
-    small_message = create :small_message, forum: forum, topic: topic, message: message
-
-    visit root_path
-    expect(page).to have_content(forum.name)
-    page.find(:xpath, "//a[@href='#{forum_path(forum)}']").click
-    expect(page).to have_content(topic.name)
-    page.find(:xpath, "//a[@href='#{topic_path(topic)}']").click
-    expect(page).to have_content(message.content)
-    expect(page).to have_content(small_message.content)
+    visit forums_path
+    page.should have_content(forum.name)
+    page.should have_xpath "//a[@href='#{forum_path(forum)}']"
   end
 
-  scenario 'users and then a profile' do
-    user = create :user
+  scenario 'a forum topics list' do
+    topic = create :topic
+    visit forum_path(topic.forum)
+    page.should have_content(topic.name)
+    page.should have_xpath "//a[@href='#{topic_path(topic)}']"
+  end
 
+  scenario 'a topic messages list' do
+    message = create :message
+    small_message = create :small_message, message: message
+    visit topic_path(message.topic)
+    page.should have_xpath "//a[@href='#{topic_path(message.topic)}']"
+    page.should have_content(message.content)
+    page.should have_content(small_message.content)
+  end
+
+  scenario 'users index' do
+    user = create :user
     visit users_path
-    expect(page).to have_content(user.name)
-    page.find(:xpath, "//a[@href='#{user_path(user)}']").click
-    expect(page).to have_content(user.name)
+    page.should have_content(user.name)
+    page.should have_xpath "//a[@href='#{user_path(user)}']"
+  end
+
+  scenario 'a profile' do
+    user = create :user
+    visit user_path(user)
+    page.should have_content(user.name)
   end
 end

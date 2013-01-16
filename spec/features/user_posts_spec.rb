@@ -11,9 +11,9 @@ feature 'User posts' do
       fill_in 'Title', with: 'Hello'
       fill_in 'Message', with: 'Check me'
       click_on 'Create Topic'
-      expect(page).to have_content('Hello')
-      expect(page).to have_content(user.name)
-      expect(page).to have_content('Check me')
+      page.should have_content('Hello')
+      page.should have_content(user.name)
+      page.should have_content('Check me')
     end
 
     scenario "a message as #{role}" do
@@ -23,8 +23,8 @@ feature 'User posts' do
       visit topic_path(topic)
       fill_in 'Message', with: 'Check me'
       click_on 'Create Message'
-      expect(page).to have_content(user.name)
-      expect(page).to have_content('Check me')
+      page.should have_content(user.name)
+      page.should have_content('Check me')
     end
 
     scenario "a small_message as #{role}" do
@@ -34,8 +34,8 @@ feature 'User posts' do
       visit topic_path(topic)
       fill_in 'small_message_content', with: 'Hi!'
       click_on 'Create Small message'
-      expect(page).to have_content(user.name)
-      expect(page).to have_content('Hi!')
+      page.should have_content(user.name)
+      page.should have_content('Hi!')
     end
   end
 end
