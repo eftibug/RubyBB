@@ -31,11 +31,11 @@ class Message < ActiveRecord::Base
     indexes :at, :as => 'created_at', :type => 'date'
   end
 
+  before_save :set_forum
   before_save :render_content
-  after_save :fire_notifications
-
   after_create :update_parents, :autofollow
   after_destroy :decrement_parent_counters
+  after_save :fire_notifications
 
   private
   def autofollow
@@ -57,6 +57,10 @@ class Message < ActiveRecord::Base
     if forum.parent_id
       Forum.update_counters forum.parent_id, messages_count: -1
     end
+  end
+
+  def set_forum
+    self.forum = Topic.find(topic_id).forum
   end
 
   def render_content

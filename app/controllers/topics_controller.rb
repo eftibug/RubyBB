@@ -39,7 +39,6 @@ class TopicsController < ApplicationController
 
     @messages = @topic.messages.select('messages.*').includes(:user, :updater, :small_messages => :user).with_follows(current_user).page params[:page]
     @message = Message.new topic_id: @topic.id
-    @message.forum_id = @topic.forum_id
 
     if current_user
       b = current_user.bookmarks.find_or_initialize_by_topic_id(@topic.id)
@@ -85,7 +84,6 @@ class TopicsController < ApplicationController
     @topic.updater_id = current_user.id
     message = @topic.messages.first
     message.user_id = current_user.id
-    message.forum_id = params[:topic][:forum_id]
     authorize! :create, @topic
 
     respond_to do |format|

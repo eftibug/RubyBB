@@ -48,8 +48,6 @@ class SmallMessagesController < ApplicationController
     @small_message = SmallMessage.new(params[:small_message])
     message = Message.find(@small_message.message_id)
     @small_message.user_id = current_user.id
-    @small_message.topic_id = message.topic_id
-    @small_message.forum_id = message.forum_id
     authorize! :create, @small_message
 
     respond_to do |format|

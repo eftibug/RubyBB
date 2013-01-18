@@ -54,7 +54,6 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(params[:message])
     @message.user_id = current_user.id
-    @message.forum_id = Topic.find(params[:message][:topic_id]).forum_id
     authorize! :create, @message
 
     respond_to do |format|

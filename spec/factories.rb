@@ -19,21 +19,18 @@ FactoryGirl.define do
     forum
     name { Faker::Lorem.sentence(2) }
     after :create do |topic, evaluator|
-      FactoryGirl.create_list(:message, 1, topic: topic, user: evaluator.user, forum: evaluator.forum)
+      FactoryGirl.create_list(:message, 1, topic: topic, user: evaluator.user)
     end
   end
 
   factory :message, aliases: [:first_message, :last_message] do
     user
-    forum
     topic
     content { Faker::Lorem.paragraph }
   end
 
   factory :small_message do
     user
-    forum
-    topic
     message
     content { Faker::Lorem.sentence(2) }
   end

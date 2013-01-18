@@ -8,7 +8,13 @@ class SmallMessage < ActiveRecord::Base
   attr_accessible :content, :message_id
   validates :content, :presence => true, :length => { :maximum => 140 }
 
+  before_save :set_parents
   after_save :fire_notifications
+
+  def set_parents
+    self.forum = message.forum
+    self.topic = message.topic
+  end
 
   def fire_notifications
     if self.message.user_id != self.user_id
