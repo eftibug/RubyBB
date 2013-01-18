@@ -61,8 +61,8 @@ class TopicsController < ApplicationController
   # GET /topics/new.json
   def new
     @topic = Topic.new forum_id: params[:forum_id]
-    @topic.messages.build
     authorize! :create, @topic
+    @topic.messages.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -81,10 +81,10 @@ class TopicsController < ApplicationController
   def create
     @topic = Topic.new(params[:topic])
     @topic.user_id = current_user.id
+    authorize! :create, @topic
     @topic.updater_id = current_user.id
     message = @topic.messages.first
     message.user_id = current_user.id
-    authorize! :create, @topic
 
     respond_to do |format|
       if @topic.save

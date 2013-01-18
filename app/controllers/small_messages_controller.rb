@@ -46,9 +46,9 @@ class SmallMessagesController < ApplicationController
   # POST /small_messages.json
   def create
     @small_message = SmallMessage.new(params[:small_message])
-    message = Message.find(@small_message.message_id)
     @small_message.user_id = current_user.id
     authorize! :create, @small_message
+    message = Message.find(@small_message.message_id)
 
     respond_to do |format|
       if @small_message.save

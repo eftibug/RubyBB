@@ -71,8 +71,8 @@ class MessagesController < ApplicationController
   # PUT /messages/1.json
   def update
     @message = Message.find(params[:id])
-    @message.updater_id = current_user.id
     authorize! :update, @message
+    @message.updater_id = current_user.id
 
     respond_to do |format|
       if @message.update_attributes(params[:message])
