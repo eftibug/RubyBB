@@ -14,6 +14,6 @@
       = f.association :forum, :include_blank => false
 
   .form-actions
-    = f.button :submit, class: @topic.new_record? || @topic.user_id == current_user.id ? 'btn-primary' : 'btn-warning'
+    = f.button :submit, class: @topic.new_record? || @topic.user_id == current_user.id ? 'btn-primary' : 'btn-warning', value: @topic.new_record? ? t('common.create') : t('common.update')
     = link_to t('common.destroy'), @topic, method: :delete, class: 'btn btn-danger', data: { confirm: t('common.are_you_sure') } if !@topic.new_record? && can?(:destroy, @topic)
     = link_to t('common.back'), @topic.new_record? ? forum_path(@topic.forum) : topic_path(@topic), :class => 'btn btn-link'
