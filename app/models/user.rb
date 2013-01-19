@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
-  attr_accessible :name, :birthdate, :location, :gender, :website
+  attr_accessible :name, :birthdate, :location, :gender, :website, :facebook, :google
 
   def self.find_for_database_authentication(conditions={})
     self.where("name = ? or email = ?", conditions[:email], conditions[:email]).limit(1).first
