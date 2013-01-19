@@ -31,7 +31,7 @@ A ruby bulletin board
     cp config/initializers/devise.rb.example config/initializers/devise.rb
     cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
 
-Configure `config/database.yml`. Then:
+Configure them. Then:
 
     bundle install
     bundle exec rake db:create
@@ -56,13 +56,17 @@ Keep `-E production` in development mode.
     bundle exec rake db:migrate
     bundle exec rake assets:clean assets:precompile
 
+### Run specs
+
+    bundle exec rspec spec/
+
 You're ready!
 
 ## Start the server
 
     bundle exec rails s
 
-## License
+## BSD 2-clause license
 
 Copyright (c) 2012, Julien Grillot.
 All rights reserved.
