@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/DouweM/http_accept_language.git
+  revision: fa57cfbf8203964d01cdb1866f63a7c6bb6356bc
+  branch: no-middleware-no-crash
+  specs:
+    http_accept_language (2.0.0.pre)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -276,6 +283,7 @@ DEPENDENCIES
   gritter
   haml-rails
   highcharts-rails
+  http_accept_language!
   jquery-rails
   kaminari
   mysql2

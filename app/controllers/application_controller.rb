@@ -3,6 +3,11 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
   before_filter :update_current_user, :if => :current_user
+  before_filter :set_locale
+
+  def set_locale
+    I18n.locale = http_accept_language.preferred_language_from(%w[en fr])
+  end
 
   def update_current_user
     current_user.touch
