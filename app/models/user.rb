@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
-  attr_accessible :name, :birthdate, :location, :gender, :website, :facebook, :google
+  attr_accessible :name, :birthdate, :location, :gender, :website
 
   def self.find_for_database_authentication(conditions={})
     self.where("name = ? or email = ?", conditions[:email], conditions[:email]).limit(1).first
@@ -63,10 +63,10 @@ class User < ActiveRecord::Base
     unless user
       user = User.create(
         name: auth.extra.raw_info.name,
-        facebook: auth.uid,
         email: auth.info.email,
         password: Devise.friendly_token[0,20]
       )
+      user.update_column :facebook, auth.uid
     end
     user
   end
@@ -82,6 +82,7 @@ class User < ActiveRecord::Base
         email: auth.info.email,
         password: Devise.friendly_token[0,20]
       )
+      user.update_column :google, auth.uid
     end
     user
   end
