@@ -9,16 +9,15 @@
     = favicon_link_tag '/ruby.png', rel: 'image_src', :type => 'image/png'
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
-    = javascript_include_tag "//#{request.host}:9292/faye.js"
     = csrf_meta_tags
     = yield(:head)
     - if can? :read, Notification.new
+      = subscribe_to "/#{current_user.id}/notifications"
       :javascript
         function link_to(text, href){ return '<a href="'+href+'">'+text+'</a>'; }
         $(document).ready(function() {
-          client = new Faye.Client(location.protocol + '//' + location.hostname + ':9292/faye');
           $notifications = $('#faye-notifications');
-          client.subscribe('/#{current_user.id}/notifications', function(data) {
+          PrivatePub.subscribe('/#{current_user.id}/notifications', function(data) {
             $notifications.html(data.count);
             $notifications.removeClass('hidden');
             $.gritter.add({title: data.title, text: data.content + ' ' + link_to('#{t('common.read')}', data.link), image: data.avatar});

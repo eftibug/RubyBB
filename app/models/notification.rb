@@ -20,6 +20,6 @@ class Notification < ActiveRecord::Base
       count: self.user.notifications_count,
       link: topic_path(self.message.topic) + '?newest'
     }
-    Net::HTTP.post_form(URI.parse("http://localhost:9292/faye"), message: {channel: "/#{self.user_id}/notifications", data: data}.to_json)
+    PrivatePub.publish_to "/#{self.user_id}/notifications", data
   end
 end

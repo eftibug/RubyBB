@@ -16,6 +16,7 @@
 //= require messages
 //= require highcharts
 //= require modernizr
+//= require private_pub
 //
 // Troubles with require_tree which includes scripts twice
 // require_tree .
