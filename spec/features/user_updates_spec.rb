@@ -8,7 +8,7 @@ feature 'User updates' do
     visit topic_path(topic)
     page.find(:xpath, "//a[@href='#{edit_topic_path(topic)}']").click
     fill_in 'Title', with: 'Topic updated'
-    click_on 'Update Topic'
+    find('.btn-primary').click
     page.should have_content('Topic updated')
   end
 
@@ -19,7 +19,7 @@ feature 'User updates' do
     visit topic_path(message.topic)
     page.find(:xpath, "//a[@href='#{edit_message_path(message)}']").click
     fill_in 'Message', with: 'Message updated'
-    click_on 'Update Message'
+    find('.btn-primary').click
     page.should have_content('Message updated')
   end
 

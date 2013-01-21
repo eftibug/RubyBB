@@ -17,7 +17,7 @@ fr:
 
   common:
     title: RubyBB
-    create: Créer
+    create: Publier
     update: Mettre à jour
     read: lire
     description: "RubyBB est un moteur de forum libre et gratuit sous licence BSD utilisant Ruby on Rails"

@@ -8,7 +8,7 @@ feature 'Admin updates' do
     visit forum_path(forum)
     page.find(:xpath, "//a[@href='#{edit_forum_path(forum)}']").click
     fill_in 'Title', with: 'Forum updated'
-    click_on 'Update Forum'
+    find('.btn-warning').click
     page.should have_content('Forum updated')
   end
 
@@ -19,7 +19,7 @@ feature 'Admin updates' do
     visit topic_path(topic)
     page.find(:xpath, "//a[@href='#{edit_topic_path(topic)}']").click
     fill_in 'Title', with: 'Topic updated'
-    click_on 'Update Topic'
+    find('.btn-warning').click
     page.should have_content('Topic updated')
   end
 
@@ -30,7 +30,7 @@ feature 'Admin updates' do
     visit topic_path(message.topic)
     page.find(:xpath, "//a[@href='#{edit_message_path(message)}']").click
     fill_in 'Message', with: 'Message updated'
-    click_on 'Update Message'
+    find('.btn-warning').click
     page.should have_content('Message updated')
   end
 end

@@ -17,7 +17,7 @@ en:
 
   common:
     title: RubyBB
-    create: Create
+    create: Publish
     update: Update
     read: 'read'
     description: "RubyBB is a free and open source Ruby on Rails forum software under BSD license"

@@ -10,7 +10,7 @@ feature 'User creates' do
       page.all(:xpath, "//a[@href='#{new_topic_path(forum_id: forum.id)}']").first.click
       fill_in 'Title', with: 'Hello'
       fill_in 'Message', with: 'Check me'
-      click_on 'Create Topic'
+      find('.btn-primary').click
       page.should have_content('Hello')
       page.should have_content(user.name)
       page.should have_content('Check me')
@@ -22,7 +22,7 @@ feature 'User creates' do
 
       visit topic_path(topic)
       fill_in 'Message', with: 'Check me'
-      click_on 'Create Message'
+      find('.btn-primary').click
       page.should have_content(user.name)
       page.should have_content('Check me')
     end
@@ -33,7 +33,7 @@ feature 'User creates' do
 
       visit topic_path(topic)
       fill_in 'small_message_content', with: 'Hi!'
-      click_on 'Create Small message'
+      find('.messages input[type=submit].hidden').click
       page.should have_content(user.name)
       page.should have_content('Hi!')
     end
@@ -52,7 +52,7 @@ feature 'User creates' do
     visit forums_path
     page.all(:xpath, "//a[@href='#{new_forum_path}']").first.click
     fill_in 'Title', with: 'My forum'
-    click_on 'Create Forum'
+    find('.btn-warning').click
     page.should have_content('My forum')
   end
 end
