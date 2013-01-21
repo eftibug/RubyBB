@@ -15,6 +15,7 @@ hr { clear: both; margin-top: 0; border-bottom: 1px #EEE solid;}
   padding-bottom: 10px;
   background: none;
   background-color: $theme;
+  filter: none;
   color: #000;
   border: 0;
   box-shadow: none;
@@ -70,6 +71,7 @@ hr { clear: both; margin-top: 0; border-bottom: 1px #EEE solid;}
   color: #fff !important;
   background: none;
   background-color: $theme;
+  filter: none;
 }
 
 .navbar .badge-success {

@@ -15,6 +15,7 @@
 //= require forums
 //= require messages
 //= require highcharts
+//= require modernizr
 //
 // Troubles with require_tree which includes scripts twice
 // require_tree .
