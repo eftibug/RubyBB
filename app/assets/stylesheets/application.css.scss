@@ -13,8 +13,6 @@
  *= require_tree .
  */
 
-@import "theme";
-
 body {
   color: #000;
   letter-spacing: 0.1em;
@@ -30,7 +28,6 @@ th.who { width: 160px; }
 th.number.fixed { width: 64px; }
 
 td a.title { color: #000; }
-a, .btn-link, .btn-link:hover, .meta a, .user a, a:hover { color: $theme; }
 h1 .btn-group { float: right; }
 h1 .btn { font-weight: normal; }
 

@@ -5,5 +5,9 @@ class Domain < ActiveRecord::Base
   has_many :messages
   has_many :small_messages
 
-  attr_accessible :banner, :bgcolor, :color, :content, :css, :messages_count, :name, :theme, :title, :topics_count, :url, :users_count
+  validates_format_of :theme, :with => /^#[0-9a-fA-F]{6}$/
+  validates_format_of :url, :with => URI::regexp(%w(http https)), :allow_blank => true
+
+  has_attached_file :banner
+  attr_accessible :banner, :content, :css, :theme, :title, :url
 end

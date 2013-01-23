@@ -1,6 +1,5 @@
 class ForumsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show, :feed]
-  before_filter :get_stats, :only => :index
 
   # GET /forums
   # GET /forums.json
@@ -128,10 +127,5 @@ class ForumsController < ApplicationController
       format.html { redirect_to forums_url }
       format.json { head :no_content }
     end
-  end
-
-  private
-  def get_stats
-    @users = User.where('updated_at >= ?', 5.minutes.ago)
   end
 end

@@ -1,5 +1,4 @@
 RubyBB::Application.routes.draw do
-
   root :to => 'forums#index'
 
   resources :topics, :except => :show do
@@ -58,6 +57,9 @@ RubyBB::Application.routes.draw do
       delete '' => :clear
     end
   end
+
+  get 'admin' => 'domains#show', as: :domains
+  put 'admin' => 'domains#update'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

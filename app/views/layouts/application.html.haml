@@ -11,6 +11,13 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
     = yield(:head)
+    :css
+      #banner { background-color: #{@domain.theme}; }
+      a, .btn-link, .btn-link:hover, .meta a, .user a, a:hover { color: #{@domain.theme}; }
+      .navbar-static-top .navbar-inner { background-color: #{@domain.theme}; }
+      .navbar-static-top .navbar-inner .nav .dropdown-menu a:hover { background-color: #{@domain.theme}; }
+      .navbar .badge-success { color: #{@domain.theme}; }
+
     - if can? :read, Notification.new
       = subscribe_to "/#{current_user.id}/notifications"
       :javascript
@@ -24,6 +31,11 @@
           });
         });
   %body
+    #banner
+      .container
+        - if @domain.banner.exists?
+          = link_to @domain.url.present? ? @domain.url : root_path do
+            = image_tag @domain.banner.url
     %header.navbar.navbar-static-top
       %nav.navbar-inner
         .container
@@ -31,6 +43,10 @@
     .container
       = render 'layouts/messages'
       .row
+        - if @domain.content.present?
+          .span12
+            .widget
+              = @domain.content
         - if @widgets_mode
           = yield
         - else

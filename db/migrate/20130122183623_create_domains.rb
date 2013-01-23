@@ -5,10 +5,8 @@ class CreateDomains < ActiveRecord::Migration
       t.string :title
       t.string :url
       t.text :content
-      t.string :banner
-      t.string :theme
-      t.string :color
-      t.string :bgcolor
+      t.text :rendered_content
+      t.string :theme, default: '#B82010'
       t.text :css
       t.integer :messages_count
       t.integer :topics_count

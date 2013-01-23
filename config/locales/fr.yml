@@ -74,6 +74,12 @@ fr:
       next: "&rsaquo;"
       truncate: "..."
 
+  domains:
+    show:
+      title: Administration
+      update: Mettre à jour
+      more: options avancées...
+
   notifications:
     index:
       title: Notifications

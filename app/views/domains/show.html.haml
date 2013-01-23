@@ -1,0 +1,20 @@
+%h2= t('.title')
+
+= simple_form_for(@domain, :url => request.path, :defaults => {:input_html => {:class => 'input-xxlarge'}}, :html => {:class => 'form-horizontal', :method => 'put'}) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :title, :input_html => {:maxlength => 24}
+    = f.input :banner, :as => :file
+    = f.input :url, :input_html => {:maxlength => 255}
+    = f.input :theme, :input_html => {:type => :color}
+    #wmd-panel
+      #wmd-button-bar
+      = f.input :content, :input_html => {:class => 'wmd-input input-xxlarge', :id => 'wmd-input'}
+    .expandable
+      .controls.more
+        %a= t('.more')
+      .details
+        = f.input :css
+  .form-actions
+    = f.button :submit, t('.update'), :class => 'btn btn-warning'
+    = link_to t('common.back'), root_path, :class => 'btn btn-link'

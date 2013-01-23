@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130122192153) do
+ActiveRecord::Schema.define(:version => 20130123121654) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -31,16 +31,17 @@ ActiveRecord::Schema.define(:version => 20130122192153) do
     t.string   "title"
     t.string   "url"
     t.text     "content"
-    t.string   "banner"
-    t.string   "theme"
-    t.string   "color"
-    t.string   "bgcolor"
+    t.string   "theme",               :default => "#B82010"
     t.text     "css"
     t.integer  "messages_count"
     t.integer  "topics_count"
     t.integer  "users_count"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.string   "banner_file_name"
+    t.string   "banner_content_type"
+    t.integer  "banner_file_size"
+    t.datetime "banner_updated_at"
   end
 
   add_index "domains", ["name"], :name => "index_domains_on_name"
