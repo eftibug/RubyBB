@@ -39,8 +39,7 @@ RubyBB::Application.configure do
   Paperclip.options[:command_path] = "/usr/bin/"
 
   config.after_initialize do
-    Bullet.enable = true
-    Bullet.alert = true
-    # Bullet.disable_browser_cache = true
+    # Bullet.enable = true
+    # Bullet.alert = true
   end
 end
