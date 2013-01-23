@@ -11,13 +11,15 @@ A ruby bulletin board
     sudo apt-get update
     sudo apt-get install libxslt1-dev memcached imagemagick libmysqld-dev nodejs curl git-core build-essential zlib1g-dev libssl-dev libreadline6-dev gem libyaml-dev
 
-### Ruby 1.9 with RVM
+### Ruby 1.9.3 with RVM
 
     bash < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
     echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"' >> ~/.bashrc
     source ~/.bashrc
     rvm pkg install openssl
-    rvm install 1.9.3
+    rvm install 1.9.3 --with-openssl-dir=$rvm_path/usr
+    rmdir $rvm_path/usr/ssl/certs
+    ln -s /etc/ssl/certs $rvm_path/usr/ssl
 
 ### Gems
 
