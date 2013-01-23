@@ -1,5 +1,6 @@
 # encoding: utf-8
 class User < ActiveRecord::Base
+  acts_as_tenant(:domain)
   has_many :topics
   has_many :messages
   has_many :bookmarks, :dependent => :destroy
@@ -12,7 +13,7 @@ class User < ActiveRecord::Base
   scope :followed_by, lambda { |user| select('follows.id as follow_id').joins("JOIN follows ON followable_id = users.id AND followable_type = 'User' AND follows.user_id = #{user.try(:id)}") if user }
 
   extend FriendlyId
-  friendly_id :name, use: [:slugged, :history]
+  friendly_id :name, use: [:slugged, :history, :scoped], :scope => :domain_id
 
   paginates_per 25
 
@@ -33,7 +34,9 @@ class User < ActiveRecord::Base
     :x40 => "-gravity center -extent 40x40"
   }
 
-  validates :name, :presence => true, :length => { :maximum => 24 }, :uniqueness => { :case_sensitive => false }
+  validates :name, :presence => true, :length => { :maximum => 24 }
+  validates_uniqueness_to_tenant :name, :case_sensitive => false
+  validates_uniqueness_to_tenant :email, :case_sensitive => false
   validates :location, :length => { :maximum => 24 }
   validates :website, :length => { :maximum => 255 }
   validates :gender, :inclusion => { :in => %w[male female other] }, :allow_blank => true
@@ -41,9 +44,19 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
+  # :validatable removed, email uniqueness does not scope by domain
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
+         :recoverable, :rememberable, :trackable,
          :omniauthable, :lockable
+
+  validates :email,
+    presence: true,
+    format: { with: /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/ }
+  validates :password,
+    presence: true,
+    length: { :in => 6..20 },
+    :if => :password_required?
+  validates_confirmation_of :password
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
@@ -78,7 +91,8 @@ class User < ActiveRecord::Base
       user.update_column :google, auth.uid if user
     end
     unless user
-      user = User.create(name: auth.info.name,
+      user = User.create(
+        name: auth.info.name,
         email: auth.info.email,
         password: Devise.friendly_token[0,20]
       )
@@ -98,5 +112,12 @@ class User < ActiveRecord::Base
 
   def update_notifications_count
     self.update_column :notifications_count, Notification.where(user_id: self.id, read: false).count
+  end
+
+protected
+
+  # copied from validatable module
+  def password_required?
+    !persisted? || !password.nil? || !password_confirmation.nil?
   end
 end

@@ -2,6 +2,7 @@ class Notification < ActiveRecord::Base
   include ActionView::Helpers
   include Rails.application.routes.url_helpers
 
+  acts_as_tenant(:domain)
   belongs_to :user
   belongs_to :message
 

@@ -32,17 +32,20 @@ end
 # To use debugger
 # gem 'debugger'
 
+gem 'acts_as_tenant'
 gem 'bootstrap-sass'
 gem 'cancan'
 gem 'dalli'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
-gem 'friendly_id'
+# native friendly_id does not handle both scoped and history
+gem 'friendly_id', git: 'git://github.com/norman/friendly_id.git', branch: '4.1.x'
 gem 'gravtastic'
 gem 'gritter'
 gem 'haml-rails'
 gem 'highcharts-rails'
+# native http_accept_language does not work
 gem 'http_accept_language', git: 'git://github.com/DouweM/http_accept_language.git', branch: 'no-middleware-no-crash'
 gem 'jquery-rails'
 gem 'kaminari'

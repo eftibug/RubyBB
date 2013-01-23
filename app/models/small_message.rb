@@ -1,6 +1,7 @@
 class SmallMessage < ActiveRecord::Base
   include Spammable
 
+  acts_as_tenant(:domain)
   belongs_to :message
   belongs_to :user
   belongs_to :topic

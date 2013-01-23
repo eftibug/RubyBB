@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130112173232) do
+ActiveRecord::Schema.define(:version => 20130122192153) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -19,11 +19,31 @@ ActiveRecord::Schema.define(:version => 20130112173232) do
     t.integer  "message_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "domain_id"
   end
 
   add_index "bookmarks", ["message_id"], :name => "index_bookmarks_on_message_id"
   add_index "bookmarks", ["topic_id"], :name => "index_bookmarks_on_topic_id"
   add_index "bookmarks", ["user_id"], :name => "index_bookmarks_on_user_id"
+
+  create_table "domains", :force => true do |t|
+    t.string   "name"
+    t.string   "title"
+    t.string   "url"
+    t.text     "content"
+    t.string   "banner"
+    t.string   "theme"
+    t.string   "color"
+    t.string   "bgcolor"
+    t.text     "css"
+    t.integer  "messages_count"
+    t.integer  "topics_count"
+    t.integer  "users_count"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "domains", ["name"], :name => "index_domains_on_name"
 
   create_table "follows", :force => true do |t|
     t.integer  "followable_id"
@@ -31,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20130112173232) do
     t.integer  "user_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.integer  "domain_id"
   end
 
   add_index "follows", ["followable_id"], :name => "index_follows_on_followable_id"
@@ -49,11 +70,12 @@ ActiveRecord::Schema.define(:version => 20130112173232) do
     t.integer  "position"
     t.integer  "follows_count",  :default => 0, :null => false
     t.integer  "parent_id"
+    t.integer  "domain_id"
   end
 
   add_index "forums", ["parent_id"], :name => "index_forums_on_parent_id"
   add_index "forums", ["position"], :name => "index_forums_on_position"
-  add_index "forums", ["slug"], :name => "index_forums_on_slug", :unique => true
+  add_index "forums", ["slug"], :name => "index_forums_on_slug"
   add_index "forums", ["updater_id"], :name => "index_forums_on_updater_id"
 
   create_table "friendly_id_slugs", :force => true do |t|
@@ -61,9 +83,10 @@ ActiveRecord::Schema.define(:version => 20130112173232) do
     t.integer  "sluggable_id",                 :null => false
     t.string   "sluggable_type", :limit => 40
     t.datetime "created_at"
+    t.string   "scope"
   end
 
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
+  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope"
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
@@ -77,6 +100,7 @@ ActiveRecord::Schema.define(:version => 20130112173232) do
     t.text     "rendered_content"
     t.integer  "updater_id"
     t.integer  "follows_count",    :default => 0, :null => false
+    t.integer  "domain_id"
   end
 
   add_index "messages", ["topic_id"], :name => "index_messages_on_topic_id"
@@ -89,6 +113,7 @@ ActiveRecord::Schema.define(:version => 20130112173232) do
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
     t.boolean  "read",       :default => false
+    t.integer  "domain_id"
   end
 
   add_index "notifications", ["message_id"], :name => "index_notifications_on_message_id"
@@ -113,6 +138,7 @@ ActiveRecord::Schema.define(:version => 20130112173232) do
     t.string   "content"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "domain_id"
   end
 
   add_index "small_messages", ["forum_id"], :name => "index_small_messages_on_forum_id"
@@ -135,13 +161,14 @@ ActiveRecord::Schema.define(:version => 20130112173232) do
     t.boolean  "pinned",           :default => false
     t.integer  "follows_count",    :default => 0,     :null => false
     t.integer  "first_message_id"
+    t.integer  "domain_id"
   end
 
   add_index "topics", ["first_message_id"], :name => "index_topics_on_first_message_id"
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
   add_index "topics", ["last_message_id"], :name => "index_topics_on_last_message_id"
   add_index "topics", ["pinned"], :name => "index_topics_on_pinned"
-  add_index "topics", ["slug"], :name => "index_topics_on_slug", :unique => true
+  add_index "topics", ["slug"], :name => "index_topics_on_slug"
   add_index "topics", ["updated_at"], :name => "index_topics_on_updated_at"
   add_index "topics", ["updater_id"], :name => "index_topics_on_updater_id"
   add_index "topics", ["user_id"], :name => "index_topics_on_user_id"
@@ -186,12 +213,13 @@ ActiveRecord::Schema.define(:version => 20130112173232) do
     t.integer  "failed_attempts",        :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.integer  "domain_id"
   end
 
   add_index "users", ["birthdate"], :name => "index_users_on_birthdate"
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["created_at"], :name => "index_users_on_created_at"
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["facebook"], :name => "index_users_on_facebook"
   add_index "users", ["gender"], :name => "index_users_on_gender"
   add_index "users", ["google"], :name => "index_users_on_google"
@@ -199,7 +227,7 @@ ActiveRecord::Schema.define(:version => 20130112173232) do
   add_index "users", ["messages_count"], :name => "index_users_on_messages_count"
   add_index "users", ["name"], :name => "index_users_on_name"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-  add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
+  add_index "users", ["slug"], :name => "index_users_on_slug"
   add_index "users", ["topics_count"], :name => "index_users_on_topics_count"
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
   add_index "users", ["updated_at"], :name => "index_users_on_updated_at"

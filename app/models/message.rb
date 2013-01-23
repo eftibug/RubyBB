@@ -8,6 +8,7 @@ class Message < ActiveRecord::Base
   PER_PAGE = 20
   paginates_per PER_PAGE
 
+  acts_as_tenant(:domain)
   has_many :notifications, :dependent => :destroy
   has_many :small_messages, :dependent => :destroy
   has_many :follows, :as => :followable, :dependent => :destroy
@@ -27,11 +28,12 @@ class Message < ActiveRecord::Base
     indexes :content, :analyzer => 'snowball'
     indexes :topic, :as => 'topic.try(:name)', :analyzer => 'snowball'
     indexes :forum, :as => 'forum.try(:name)', :analyzer => 'snowball'
+    indexes :domain, :as => 'domain.try(:name)', :analyzer => 'snowball'
     indexes :user, :as => 'user.try(:name)', :analyzer => 'snowball'
     indexes :at, :as => 'created_at', :type => 'date'
   end
 
-  before_save :set_forum
+  before_save :set_parents
   before_save :render_content
   after_create :update_parents, :autofollow
   after_destroy :decrement_parent_counters
@@ -59,7 +61,7 @@ class Message < ActiveRecord::Base
     end
   end
 
-  def set_forum
+  def set_parents
     self.forum = Topic.find(topic_id).forum
   end
 

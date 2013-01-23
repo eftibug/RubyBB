@@ -21,7 +21,7 @@ RubyBB::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   as :user do
     get 'register' => 'devise/registrations#new', :as => :new_user_registration
-    post 'profile' => 'devise/registrations#create', :as => :user_registration
+    post 'profile' => 'registrations#create', :as => :user_registration
     delete 'profile' => 'devise/registrations#destroy', :as => :user_registration
     get 'profile' => 'devise/registrations#edit', :as => :edit_user_registration
     put 'profile' => 'registrations#update', :as => :user_registration

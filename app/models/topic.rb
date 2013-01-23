@@ -1,10 +1,11 @@
 class Topic < ActiveRecord::Base
   include ActionView::Helpers
   extend FriendlyId
-  friendly_id :name, use: [:slugged, :history]
+  friendly_id :name, use: [:slugged, :history, :scoped], :scope => :domain_id
 
   paginates_per 25
 
+  acts_as_tenant(:domain)
   belongs_to :viewer, :class_name => 'User', :foreign_key => 'viewer_id'
   belongs_to :updater, :class_name => 'User', :foreign_key => 'updater_id'
   belongs_to :first_message, :class_name => 'Message', :foreign_key => 'first_message_id'
@@ -14,7 +15,8 @@ class Topic < ActiveRecord::Base
   has_many :messages, :include => [:user], :dependent => :destroy
   has_many :follows, :as => :followable, :dependent => :destroy
   accepts_nested_attributes_for :messages
-  validates :name, :presence => true, :length => { :maximum => 64 }, :uniqueness => { :scope => :forum_id, :case_sensitive => false }
+  validates :name, :presence => true, :length => { :maximum => 64 }
+  validates_uniqueness_to_tenant :name, :case_sensitive => false
   validates :forum, :presence => true
   attr_accessible :name, :forum_id, :messages_attributes
 
@@ -45,6 +47,7 @@ class Topic < ActiveRecord::Base
   end
 
   private
+
   def autofollow
     f = Follow.new(followable_id: id, followable_type: 'Topic')
     f.user_id = user_id

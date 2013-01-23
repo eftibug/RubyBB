@@ -7,8 +7,9 @@ class MessagesController < ApplicationController
     @meta = true
     begin
       p = params
+      d = "domain:#{request.host}"
       @messages = Message.search(page: params[:page], load: { include: [:user, :topic, :updater, :small_messages => :user]}) do
-        query { string p[:q], default_operator: 'AND' }
+        query { string "#{d} #{p[:q]}", default_operator: 'AND' }
         sort { by :at, 'desc' }
       end
     rescue

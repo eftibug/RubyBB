@@ -10,6 +10,8 @@ require 'faker'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+ActsAsTenant.current_tenant = Domain.find_or_create_by_name('www.example.com')
+
 RSpec.configure do |config|
   # ## Mock Framework
   #

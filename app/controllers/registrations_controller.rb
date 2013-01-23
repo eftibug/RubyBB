@@ -1,4 +1,9 @@
 class RegistrationsController < Devise::RegistrationsController
+  def create
+    super
+    resource.update_attribute :sysadmin, true if User.count == 1
+  end
+
   def update
     @user = User.find(current_user.id)
     email_changed = @user.email != params[:user][:email]

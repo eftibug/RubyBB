@@ -5,6 +5,13 @@ GIT
   specs:
     http_accept_language (2.0.0.pre)
 
+GIT
+  remote: git://github.com/norman/friendly_id.git
+  revision: f3ff9eedfeb9533643ee5589e1c21372b4ad4f6f
+  branch: 4.1.x
+  specs:
+    friendly_id (4.1.0.beta.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -35,6 +42,8 @@ GEM
     activesupport (3.2.11)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    acts_as_tenant (0.2.9)
+      rails (>= 3.1)
     addressable (2.3.2)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
@@ -104,7 +113,6 @@ GEM
     faye-websocket (0.4.6)
       eventmachine (>= 0.12.0)
     ffi (1.3.1)
-    friendly_id (4.0.9)
     gravtastic (3.2.6)
     gritter (1.0.2)
     haml (3.1.7)
@@ -268,6 +276,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_tenant
   bootstrap-sass
   bullet
   cancan
@@ -280,7 +289,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   fakeweb
-  friendly_id
+  friendly_id!
   gravtastic
   gritter
   haml-rails
