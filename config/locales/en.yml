@@ -55,6 +55,7 @@ en:
 
   layouts:
     navigation:
+      admin: Admin
       forums: Forums
       users: Users
       user: Profile
@@ -165,6 +166,13 @@ en:
       topic: Topic
       message: Message
     attributes:
+      domain:
+        title: Title
+        banner: Banner
+        url: Url on banner
+        theme: Theme color
+        content: Home content
+        css: CSS
       forum:
         name: Title
         content: Description
