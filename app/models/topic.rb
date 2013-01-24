@@ -6,6 +6,7 @@ class Topic < ActiveRecord::Base
   paginates_per 25
 
   acts_as_tenant(:domain)
+  belongs_to :domain, :counter_cache => true
   belongs_to :viewer, :class_name => 'User', :foreign_key => 'viewer_id'
   belongs_to :updater, :class_name => 'User', :foreign_key => 'updater_id'
   belongs_to :first_message, :class_name => 'Message', :foreign_key => 'first_message_id'

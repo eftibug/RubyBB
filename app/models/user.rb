@@ -1,6 +1,7 @@
 # encoding: utf-8
 class User < ActiveRecord::Base
   acts_as_tenant(:domain)
+  belongs_to :domain, :counter_cache => true
   has_many :topics
   has_many :messages
   has_many :bookmarks, :dependent => :destroy

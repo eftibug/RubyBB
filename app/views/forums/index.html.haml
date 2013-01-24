@@ -33,10 +33,9 @@
                 %p
                   = t('common.by')
                   = username forum.updater
--#
-  .widget
-    %h4= t('common.stats')
-    %p= t('.counters', topics: Topic.count, messages: Message.count)
-    %p
-      = "#{t('.users', count: User.count)}#{t('.online', count: @users.count)}"
-      = raw @users.map{|u| username u}.join(', ')
+.widget
+  %h4= t('common.stats')
+  %p= t('.counters', topics: @domain.topics_count, messages: @domain.messages_count)
+  %p
+    = "#{t('.users', count: @domain.users_count)}#{t('.online', count: @users.count)}"
+    = raw @users.map{|u| username u}.join(', ')

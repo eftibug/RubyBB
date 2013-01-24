@@ -10,6 +10,7 @@ class Message < ActiveRecord::Base
   paginates_per PER_PAGE
 
   acts_as_tenant(:domain)
+  belongs_to :domain, :counter_cache => true
   has_many :notifications, :dependent => :destroy
   has_many :small_messages, :dependent => :destroy
   has_many :follows, :as => :followable, :dependent => :destroy
