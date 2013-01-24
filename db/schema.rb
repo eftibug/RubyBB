@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20130123121654) do
     t.string   "title"
     t.string   "url"
     t.text     "content"
+    t.text     "rendered_content"
     t.string   "theme",               :default => "#B82010"
     t.text     "css"
     t.integer  "messages_count"

@@ -1,4 +1,6 @@
 class Domain < ActiveRecord::Base
+  include Renderable
+
   has_many :users
   has_many :forums
   has_many :topics

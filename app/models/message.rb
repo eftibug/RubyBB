@@ -2,6 +2,7 @@ class Message < ActiveRecord::Base
   include Tire::Model::Search
   include Tire::Model::Callbacks
   include Spammable
+  include Renderable
 
   has_paper_trail :only => [:content]
 
@@ -34,7 +35,6 @@ class Message < ActiveRecord::Base
   end
 
   before_save :set_parents
-  before_save :render_content
   after_create :update_parents, :autofollow
   after_destroy :decrement_parent_counters
   after_save :fire_notifications
@@ -63,25 +63,6 @@ class Message < ActiveRecord::Base
 
   def set_parents
     self.forum = Topic.find(topic_id).forum
-  end
-
-  def render_content
-    @user_ids = Array.new
-    require 'redcarpet'
-    renderer = Redcarpet::Render::HTML.new link_attributes: {rel: 'nofollow', target: '_blank'}, filter_html: true
-    extensions = {space_after_headers: true, no_intra_emphasis: true, tables: true, fenced_code_blocks: true, autolink: true, strikethrough: true, superscript: true}
-    hashtagged = self.content.gsub(/(^|\s)@([[:alnum:]_-]+)/u) { |tag|
-      if user = User.where(name: $2).first
-        @user_ids << user.id
-        "#{$1}[@#{$2}](#{Rails.application.routes.url_helpers.user_path(user)})"
-      else
-        tag
-      end
-    }.gsub(/(^|\s)#([[:alnum:]_-]+)/u) { |tag|
-      "#{$1}[##{$2}](#{Rails.application.routes.url_helpers.messages_path(q: $2)})"
-    }
-    redcarpet = Redcarpet::Markdown.new(renderer, extensions)
-    self.rendered_content = redcarpet.render(hashtagged)
   end
 
   def fire_notifications

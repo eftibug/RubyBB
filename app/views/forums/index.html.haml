@@ -1,5 +1,9 @@
+- if @domain.content.present?
+  .widget
+    = raw @domain.rendered_content
+
 %h1
-  = t('common.title')
+  = t('common.forums')
   %small=link_to t('common.new'), new_forum_path if can? :create, Forum.new
 
 %table.table.table-striped{id: can?(:position, Forum) ? 'forums' : nil}

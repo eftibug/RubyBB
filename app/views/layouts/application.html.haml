@@ -43,10 +43,6 @@
     .container
       = render 'layouts/messages'
       .row
-        - if @domain.content.present?
-          .span12
-            .widget
-              = @domain.content
         - if @widgets_mode
           = yield
         - else
