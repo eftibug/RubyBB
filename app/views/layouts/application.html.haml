@@ -7,7 +7,8 @@
     %meta{:content => t('common.description'), :name => "description"}
     %meta{:content => "Julien Grillot", :name => "author"}
     = favicon_link_tag '/ruby.png', rel: 'image_src', :type => 'image/png'
-    = stylesheet_link_tag    "application", :media => "all"
+    = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag admin_path(format: :css), :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
     = yield(:head)

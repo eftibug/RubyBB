@@ -60,6 +60,7 @@ RubyBB::Application.routes.draw do
 
   get 'admin' => 'domains#show', as: :domains
   put 'admin' => 'domains#update'
+  delete 'admin/banner' => 'domains#delete_banner', as: :domain_banner
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

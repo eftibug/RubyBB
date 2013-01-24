@@ -4,6 +4,7 @@ class Ability
   def initialize(user)
     user ||= User.new
 
+    can :read, Domain
     can :read, Forum
     can :read, Topic
     can :read, Message
@@ -11,6 +12,9 @@ class Ability
     can :read, User
 
     unless user.new_record?
+      can :manage, Domain do |o|
+        user.sysadmin?
+      end
       can [:manage, :position], Forum do |o|
         user.sysadmin?
       end

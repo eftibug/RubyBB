@@ -4,8 +4,12 @@
   = f.error_notification
   .form-inputs
     = f.input :title, :input_html => {:maxlength => 24}
+    - if @domain.banner.exists?
+      .controls.banner
+        = image_tag @domain.banner.url, style: 'max-height: 50px;'
+        = link_to '×', domain_banner_path, method: :delete, remote: true
     = f.input :banner, :as => :file
-    = f.input :url, :input_html => {:maxlength => 255}
+    = f.input :url, :input_html => {:maxlength => 255, :placeholder => 'http://'}
     = f.input :theme, :input_html => {:type => :color}
     #wmd-panel
       #wmd-button-bar

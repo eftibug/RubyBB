@@ -2,7 +2,7 @@ module Renderable
   extend ActiveSupport::Concern
 
   included do
-    before_save :render_content
+    before_save :render_content, if: Proc.new{|model| model.content.present?}
   end
 
   private
