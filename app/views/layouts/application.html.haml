@@ -3,9 +3,9 @@
   %head
     %meta{:charset => "utf-8"}
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
-    %title= content_for?(:title) ? "#{yield(:title)} - #{t('common.title')}" : t('common.title')
-    %meta{:content => t('common.description'), :name => "description"}
-    %meta{:content => "Julien Grillot", :name => "author"}
+    %title= content_for?(:title) ? "#{yield(:title)} - #{@domain.title}" : @domain.title
+    %meta{:content => @domain.description, :name => "description"}
+    %meta{:content => @domain.keywords, :name => "keywords"}
     = favicon_link_tag '/ruby.png', rel: 'image_src', :type => 'image/png'
     = stylesheet_link_tag "application", :media => "all"
     = stylesheet_link_tag admin_path(format: :css), :media => "all"

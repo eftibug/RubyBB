@@ -4,6 +4,8 @@
   = f.error_notification
   .form-inputs
     = f.input :title, :input_html => {:maxlength => 24}
+    = f.input :description, :input_html => {:maxlength => 255}
+    = f.input :keywords, :input_html => {:maxlength => 255}
     - if @domain.banner.exists?
       .controls.banner
         = image_tag @domain.banner.url, style: 'max-height: 50px;'

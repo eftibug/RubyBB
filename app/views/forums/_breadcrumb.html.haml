@@ -7,7 +7,7 @@
 
 %ul.breadcrumb
   %li
-    = link_to t('common.title'), root_path
+    = link_to @domain.title, root_path
     %span.divider /
   %li.active
     = link_to forum.name, forum_path(forum)

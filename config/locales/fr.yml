@@ -16,11 +16,9 @@ fr:
       default: "%Y-%m-%d, %H:%M"
 
   common:
-    title: RubyBB
     create: Publier
     update: Mettre à jour
     read: lire
-    description: "RubyBB est un moteur de forum libre et gratuit sous licence BSD utilisant Ruby on Rails"
     back: retour
     by: par
     in: dans
@@ -168,6 +166,8 @@ fr:
     attributes:
       domain:
         title: Titre
+        description: Description
+        keywords: Mots-clés
         banner: Bannière
         url: Lien sur la bannière
         theme: Couleur thème

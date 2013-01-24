@@ -1,7 +1,7 @@
 xml.instruct! :xml, :version => "1.0" 
 xml.rss :version => "2.0" do
   xml.channel do
-    xml.title "#{@topic.name} - #{t('common.title')}"
+    xml.title "#{@topic.name} - #{@domain.title}"
     xml.description t('common.description')
     xml.pubdDate @topic.created_at.to_s(:rfc822)
     xml.lastBuildDate @topic.updated_at.to_s(:rfc822)

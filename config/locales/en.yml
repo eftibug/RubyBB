@@ -16,11 +16,9 @@ en:
       default: "%Y-%m-%d, %I:%M %p"
 
   common:
-    title: RubyBB
     create: Publish
     update: Update
     read: 'read'
-    description: "RubyBB is a free and open source Ruby on Rails forum software under BSD license"
     back: back
     by: by
     in: in
@@ -168,6 +166,8 @@ en:
     attributes:
       domain:
         title: Title
+        description: Description
+        keywords: Keywords
         banner: Banner
         url: Url on banner
         theme: Theme color
