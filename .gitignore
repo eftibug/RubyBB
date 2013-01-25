@@ -2,6 +2,7 @@ config/private_pub.yml
 config/initializers/secret_token.rb
 config/initializers/devise.rb
 public/assets
+.rvmrc
 *.rbc
 *.sassc
 .sass-cache
