@@ -6,6 +6,8 @@
     %title= content_for?(:title) ? "#{yield(:title)} - #{@domain.title}" : @domain.title
     %meta{:content => @domain.description, :name => "description"}
     %meta{:content => @domain.keywords, :name => "keywords"}
+    - if @domain.users_count == 0
+      %meta{:content => 'noindex, nofollow', :name => "robots"}
     = favicon_link_tag '/ruby.png', rel: 'image_src', :type => 'image/png'
     = stylesheet_link_tag "application", :media => "all"
     = stylesheet_link_tag admin_path(format: :css), :media => "all"
