@@ -123,6 +123,7 @@ GEM
       railties (>= 3.1, < 4.1)
     hashie (1.2.0)
     hashr (0.0.22)
+    high_voltage (1.2.1)
     highcharts-rails (2.3.3.1)
       railties (>= 3.1)
     hike (1.2.1)
@@ -293,6 +294,7 @@ DEPENDENCIES
   gravtastic
   gritter
   haml-rails
+  high_voltage
   highcharts-rails
   http_accept_language!
   jquery-rails

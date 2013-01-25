@@ -45,6 +45,7 @@ gem 'gravtastic'
 gem 'gritter'
 gem 'haml-rails'
 gem 'highcharts-rails'
+gem 'high_voltage'
 # native http_accept_language does not work
 gem 'http_accept_language', git: 'git://github.com/DouweM/http_accept_language.git', branch: 'no-middleware-no-crash'
 gem 'jquery-rails'

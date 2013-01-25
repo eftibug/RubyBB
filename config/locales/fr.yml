@@ -52,6 +52,9 @@ fr:
       other: "%{count} messages"
 
   layouts:
+    application:
+      powered_by: Propulsé par
+      about: À propos
     navigation:
       admin: Admin
       forums: Forums

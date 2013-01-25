@@ -52,6 +52,9 @@ en:
       other: "%{count} messages"
 
   layouts:
+    application:
+      powered_by: Powered by
+      about: About
     navigation:
       admin: Admin
       forums: Forums

@@ -62,6 +62,8 @@ RubyBB::Application.routes.draw do
   put 'admin' => 'domains#update'
   delete 'admin/banner' => 'domains#delete_banner', as: :domain_banner
 
+  get '/:id' => 'high_voltage/pages#show', :as => :static
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
