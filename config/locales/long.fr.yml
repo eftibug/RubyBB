@@ -1,0 +1,44 @@
+fr:
+  home: |
+    ## Hey !
+    Ce forum est vide. Soyez le premier utilisateur inscrit et devenez son administrateur !
+
+  about: |
+    ### À propos
+    RubyBB est un moteur de forum gratuit et libre.
+    Il est sous [licence SD-2-clause](https://github.com/RubyBB/RubyBB#bsd-2-clause-license).
+    Vous pouvez au choix l'installer par vous-même ou le créer gratuitement depuis RubyBB.com.
+
+    ### Comment ça fonctionne
+    Allez sur nimportequoi.rubybb.com : ça va créer automatiquement un nouveau forum !
+    Le premier utilisateur inscrit en sera son administrateur.
+    Chaque forum a son propre thème et sa propre base de données d'utilisateurs, catégories, topics et messages.
+    Si vous possédez un nom de domaine, liées cequevousvoulez.votredomaine.com sur [www.rubybb.com](http://www.rubybb.com/) et tout fonctionnera.
+
+    ### Vie privée
+    Vous pouvez supprimer tous ce que vous créez avec RubyBB :
+
+    * en tant qu'utilisateur, supprimez vos commentaires, messages, topics et compte.
+    * en tant qu'administrateur, vous pouvez tout supprimer et accéder à 
+      l'historique des modifications des messages tant que ceux-ci ne sont pas supprimés.
+
+    ### Gestion du spam
+    L'administrateur doit valider le premier message de chaque utilisateur pour que celui-ci continue à poster.
+    Personne ne peut poster plus d'un message ou commentaire toutes les dix secondes.
+
+    ### Fonctionnalités
+    * un espace de commentaire vous attend en dessous de chaque message;
+    * suivez message/topic/forum/utilisateur pour être notifié en temps réel des informations que vous attendez;
+    * prévisualisez en temps réel ce que vous écrivez: ce que vous voyez est ce que vous posterez;
+    * un crash ? ce que vous écrivez est sauvegardé automatiquement pendant que vous tapez;
+    * un super moteur de recherche : joker, exclusion, phrases, meta-données...
+    * connectez-vous avec Facebook et Google;
+    * faites des liens automatiquement avec les #hashtags et @utilisateurs;
+    * renommer une catégorie ou un topic ne cassera rien : les anciens liens redirigeront vers les nouveaux;
+    * Des flux RSS pour chaque catégorie et chaque topic;
+    * Personnalisez tout avec votre CSS !
+
+    ### Contact
+    Bug, fonctionnalité, aide, question, traduction, encouragements...
+    allez sur le forum [www.rubybb.com](http://www.rubybb.com/),
+    inscrivez-vous et postez : on aime communiquer!

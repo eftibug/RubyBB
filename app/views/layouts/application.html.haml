@@ -55,4 +55,4 @@
         = t('.powered_by')
         = link_to 'RubyBB', 'http://www.rubybb.com'
         © 2012 –
-        = link_to t('.about'), static_path('about')
+        = link_to t('.about'), static_path('about', host: 'www.rubybb.com', :only_path => false)

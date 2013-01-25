@@ -1,41 +1,47 @@
-- if @domain.content.present?
+- if @domain.users_count == 0
   .widget
-    = raw @domain.rendered_content
+    :markdown
+      #{t('home')}
 
-%h1
-  = t('common.forums')
-  %small=link_to t('common.new'), new_forum_path if can? :create, Forum.new
+- else
+  - if @domain.content.present?
+    .widget
+      = raw @domain.rendered_content
 
-%table.table.table-striped{id: can?(:position, Forum) ? 'forums' : nil}
-  %tbody
-    - @forums.each do |forum|
-      - if can? :read, forum
-        %tr{id: forum.id}
-          - if can? :position, forum
-            %td.position
-              ☰
-          - cache "forum-#{forum.id}-#{forum.updated_at}" do
-            %td
-              = link_to forum, :class => :title do
-                %p
-                  %strong= forum.name
-              - if forum.children.any?
-                %p
-                  = t('.see_also')
-                  =raw forum.children.map{|f| link_to f.name, forum_path(f) if can? :read, f}.reject(&:nil?).join(', ')
-              %p.reset= forum.content
-            %td.infos.hidden-phone
-              %p= t('common.topics_count', count: forum.topics_count)
-              %p= t('common.messages_count', count: forum.messages_count)
-            %td.infos.hidden-portrait-phone
-              - if forum.updated_at
-                %p= l forum.updated_at, format: :short
-                %p
-                  = t('common.by')
-                  = username forum.updater
-.widget
-  %h4= t('common.stats')
-  %p= t('.counters', topics: @domain.topics_count, messages: @domain.messages_count)
-  %p
-    = "#{t('.users', count: @domain.users_count)}#{t('.online', count: @users.count)}"
-    = raw @users.map{|u| username u}.join(', ')
+  %h1
+    = t('common.forums')
+    %small=link_to t('common.new'), new_forum_path if can? :create, Forum.new
+
+  %table.table.table-striped{id: can?(:position, Forum) ? 'forums' : nil}
+    %tbody
+      - @forums.each do |forum|
+        - if can? :read, forum
+          %tr{id: forum.id}
+            - if can? :position, forum
+              %td.position
+                ☰
+            - cache "forum-#{forum.id}-#{forum.updated_at}" do
+              %td
+                = link_to forum, :class => :title do
+                  %p
+                    %strong= forum.name
+                - if forum.children.any?
+                  %p
+                    = t('.see_also')
+                    =raw forum.children.map{|f| link_to f.name, forum_path(f) if can? :read, f}.reject(&:nil?).join(', ')
+                %p.reset= forum.content
+              %td.infos.hidden-phone
+                %p= t('common.topics_count', count: forum.topics_count)
+                %p= t('common.messages_count', count: forum.messages_count)
+              %td.infos.hidden-portrait-phone
+                - if forum.updated_at
+                  %p= l forum.updated_at, format: :short
+                  %p
+                    = t('common.by')
+                    = username forum.updater
+  .widget
+    %h4= t('common.stats')
+    %p= t('.counters', topics: @domain.topics_count, messages: @domain.messages_count)
+    %p
+      = "#{t('.users', count: @domain.users_count)}#{t('.online', count: @users.count)}"
+      = raw @users.map{|u| username u}.join(', ')
