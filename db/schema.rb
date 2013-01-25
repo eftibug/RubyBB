@@ -33,9 +33,9 @@ ActiveRecord::Schema.define(:version => 20130124142400) do
     t.text     "content"
     t.string   "theme",               :default => "#B82010"
     t.text     "css"
-    t.integer  "messages_count"
-    t.integer  "topics_count"
-    t.integer  "users_count"
+    t.integer  "messages_count",      :default => 0,         :null => false
+    t.integer  "topics_count",        :default => 0,         :null => false
+    t.integer  "users_count",         :default => 0,         :null => false
     t.datetime "created_at",                                 :null => false
     t.datetime "updated_at",                                 :null => false
     t.string   "banner_file_name"
