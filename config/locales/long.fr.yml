@@ -6,7 +6,7 @@ fr:
   about: |
     ### À propos
     RubyBB est un moteur de forum gratuit et libre.
-    Il est sous [licence SD-2-clause](https://github.com/RubyBB/RubyBB#bsd-2-clause-license).
+    Il est sous [licence BSD-2-clause](https://github.com/RubyBB/RubyBB#bsd-2-clause-license).
     Vous pouvez au choix l'installer par vous-même ou le créer gratuitement depuis RubyBB.com.
 
     ### Comment ça fonctionne
