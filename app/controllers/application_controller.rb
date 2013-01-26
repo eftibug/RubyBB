@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    I18n.locale = http_accept_language.preferred_language_from(%w[en fr])
+    I18n.locale = http_accept_language.preferred_language_from(%w[en fr es])
   end
 
   def update_current_user
