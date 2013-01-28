@@ -21,6 +21,9 @@ class Message < ActiveRecord::Base
   validates :content, :presence => true, :length => { :maximum => 32768 }
   attr_accessible :content, :topic_id
 
+  scope :graph, lambda { select(['date(created_at) as date', 'count(id) as value']).group('date') }
+  scope :graph_follows, lambda { select(['date(created_at) as date', 'sum(follows_count) as value']).where('follows_count > ?', 0).group('date') }
+
   scope :with_follows, lambda { |user| select('follows.id as follow_id').joins("LEFT JOIN follows ON followable_id = messages.id AND followable_type = 'Message' AND follows.user_id = #{user.try(:id)}") if user }
 
   scope :followed_by, lambda { |user| select('follows.id as follow_id').joins("JOIN follows ON followable_id = messages.id AND followable_type = 'Message' AND follows.user_id = #{user.try(:id)}") if user }
