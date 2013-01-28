@@ -17,10 +17,4 @@ class Forum < ActiveRecord::Base
   scope :with_follows, lambda { |user| select('follows.id as follow_id').joins("LEFT JOIN follows ON followable_id = forums.id AND followable_type = 'Forum' AND follows.user_id = #{user.try(:id)}") if user }
 
   attr_accessible :content, :name, :parent_id
-
-  def fix_counters
-    topics = Topic.where(:forum_id => children.map(&:id) << id).count
-    messages = Message.where(:forum_id => children.map(&:id) << id).count
-    Forum.update_counters id, topics_count: topics - topics_count, messages_count: messages - messages_count
-  end
 end
