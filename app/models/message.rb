@@ -44,6 +44,7 @@ class Message < ActiveRecord::Base
   after_save :fire_notifications
 
   private
+
   def autofollow
     Follow.find_or_create_by_followable_type_and_followable_id_and_user_id('Topic', topic_id, user_id)
   end

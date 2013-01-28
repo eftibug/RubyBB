@@ -9,6 +9,8 @@ class Notification < ActiveRecord::Base
   after_save :update_notifications_count, :publish
   after_destroy :update_notifications_count
 
+  private
+
   def update_notifications_count
     self.user.update_notifications_count
   end

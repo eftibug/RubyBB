@@ -12,6 +12,8 @@ class SmallMessage < ActiveRecord::Base
   before_save :set_parents
   after_save :fire_notifications
 
+  private
+
   def set_parents
     self.forum = message.forum
     self.topic = message.topic
