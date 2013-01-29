@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20130124142400) do
     t.string   "title"
     t.string   "url"
     t.text     "content"
+    t.text     "rendered_content"
     t.string   "theme",               :default => "#B82010"
     t.text     "css"
     t.integer  "messages_count",      :default => 0,         :null => false
@@ -42,7 +43,6 @@ ActiveRecord::Schema.define(:version => 20130124142400) do
     t.string   "banner_content_type"
     t.integer  "banner_file_size"
     t.datetime "banner_updated_at"
-    t.text     "rendered_content"
     t.string   "description"
     t.string   "keywords"
   end
@@ -63,10 +63,10 @@ ActiveRecord::Schema.define(:version => 20130124142400) do
   add_index "follows", ["user_id"], :name => "index_follows_on_user_id"
 
   create_table "forums", :force => true do |t|
-    t.string   "name"
+    t.string   "name",                          :null => false
     t.text     "content"
-    t.integer  "topics_count",   :default => 0
-    t.integer  "messages_count", :default => 0
+    t.integer  "topics_count",   :default => 0, :null => false
+    t.integer  "messages_count", :default => 0, :null => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
     t.string   "slug"
@@ -98,15 +98,16 @@ ActiveRecord::Schema.define(:version => 20130124142400) do
     t.text     "content"
     t.integer  "user_id"
     t.integer  "topic_id"
+    t.integer  "forum_id"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
-    t.integer  "forum_id",         :default => 0
     t.text     "rendered_content"
     t.integer  "updater_id"
     t.integer  "follows_count",    :default => 0, :null => false
     t.integer  "domain_id"
   end
 
+  add_index "messages", ["forum_id"], :name => "index_messages_on_forum_id"
   add_index "messages", ["topic_id"], :name => "index_messages_on_topic_id"
   add_index "messages", ["updater_id"], :name => "index_messages_on_updater_id"
   add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
@@ -151,10 +152,10 @@ ActiveRecord::Schema.define(:version => 20130124142400) do
   add_index "small_messages", ["user_id"], :name => "index_small_messages_on_user_id"
 
   create_table "topics", :force => true do |t|
-    t.string   "name"
+    t.string   "name",                                :null => false
     t.integer  "user_id"
     t.integer  "forum_id"
-    t.integer  "messages_count",   :default => 0
+    t.integer  "messages_count",   :default => 0,     :null => false
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
     t.string   "slug"
@@ -191,8 +192,8 @@ ActiveRecord::Schema.define(:version => 20130124142400) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
-    t.integer  "messages_count",         :default => 0
-    t.integer  "topics_count",           :default => 0
+    t.integer  "messages_count",         :default => 0,     :null => false
+    t.integer  "topics_count",           :default => 0,     :null => false
     t.string   "name"
     t.date     "birthdate"
     t.string   "gender"
