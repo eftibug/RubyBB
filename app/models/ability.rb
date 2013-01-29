@@ -24,8 +24,8 @@ class Ability
       can :manage, Topic do |o|
         user.id == o.user_id || user.sysadmin?
       end
-      can :pin, Topic do |o|
-        user.sysadmin?
+      cannot :pin, Topic do |o|
+        !user.sysadmin?
       end
       can :create, Message do |o|
         user.human? || user.messages.empty? || user.sysadmin?
