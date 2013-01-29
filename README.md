@@ -62,6 +62,7 @@ Keep `-E production` in development mode.
 
 ### Run specs
 
+    RAILS_ENV=test bundle exec rake db:migrate
     bundle exec rspec spec/
 
 You're ready!

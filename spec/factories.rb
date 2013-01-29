@@ -11,13 +11,13 @@ FactoryGirl.define do
   end
 
   factory :forum do
-    name { Faker::Lorem.sentence(2) }
+    name { Faker::Lorem.sentence(2)[0..24] }
   end
 
   factory :topic do
     user
     forum
-    name { Faker::Lorem.sentence(2) }
+    name { Faker::Lorem.sentence(2)[0..24] }
     after :create do |topic, evaluator|
       FactoryGirl.create_list(:message, 1, topic: topic, user: evaluator.user)
     end
