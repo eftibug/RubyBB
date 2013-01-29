@@ -8,7 +8,8 @@ require 'faker'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+Dir[Rails.root.join("spec/support/features/*.rb")].each {|f| require f}
+Dir[Rails.root.join("spec/support/*.rb")].each {|f| require f}
 
 ActsAsTenant.current_tenant = Domain.find_or_create_by_name('www.example.com')
 
