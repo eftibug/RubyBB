@@ -42,9 +42,9 @@ Configure them. Then:
 
 ### Setup and start elasticsearch
 
-    curl -k -L -o elasticsearch-0.19.0.tar.gz http://github.com/downloads/elasticsearch/elasticsearch/elasticsearch-0.19.0.tar.gz
-    tar -zxvf elasticsearch-0.19.0.tar.gz
-    ./elasticsearch-0.19.0/bin/elasticsearch -f
+    curl -k -L -o elasticsearch-0.20.4.tar.gz http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.20.4.tar.gz
+    tar -zxvf elasticsearch-0.20.4.tar.gz
+    ./elasticsearch-0.20.4/bin/elasticsearch -f
     bundle exec rake environment tire:import CLASS='Message' FORCE=true
 
 ### Start faye
