@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124142400) do
+ActiveRecord::Schema.define(:version => 20130130143009) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -99,12 +99,16 @@ ActiveRecord::Schema.define(:version => 20130124142400) do
     t.integer  "user_id"
     t.integer  "topic_id"
     t.integer  "forum_id"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.text     "rendered_content"
     t.integer  "updater_id"
-    t.integer  "follows_count",    :default => 0, :null => false
+    t.integer  "follows_count",           :default => 0, :null => false
     t.integer  "domain_id"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
   end
 
   add_index "messages", ["forum_id"], :name => "index_messages_on_forum_id"

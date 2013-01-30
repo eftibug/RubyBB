@@ -149,6 +149,7 @@ fr:
       title: Résultats de la recherche
     show:
       quote: citation
+      download: "Télécharger le fichier joint : %{name}"
       use: citer
       updated_by: "Modifié par %{name} à %{date}"
       bot: "%{name} est un robot"
@@ -183,6 +184,7 @@ fr:
         name: Titre
       message:
         content: Message
+        attachment: Fichier joint (1 Mo)
       user:
         email: Email
         password: Mot de passe

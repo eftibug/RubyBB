@@ -149,6 +149,7 @@ en:
       title: Search results
     show:
       quote: quote
+      download: "Download attached file: %{name}"
       use: use this
       updated_by: "Updated by %{name} at %{date}"
       bot: "%{name} is a bot"
@@ -183,6 +184,7 @@ en:
         name: Title
       message:
         content: Message
+        attachment: Attachment (1 MB)
       user:
         email: Email
         password: Password

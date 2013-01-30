@@ -5,6 +5,8 @@ class Message < ActiveRecord::Base
   include Renderable
 
   has_paper_trail :only => [:content]
+  has_attached_file :attachment
+  validates_attachment_size :attachment, :less_than => 1.megabyte
 
   PER_PAGE = 20
   paginates_per PER_PAGE
@@ -19,7 +21,7 @@ class Message < ActiveRecord::Base
   belongs_to :topic, :counter_cache => true, :touch => true
   belongs_to :forum, :counter_cache => true, :touch => true
   validates :content, :presence => true, :length => { :maximum => 32768 }
-  attr_accessible :content, :topic_id
+  attr_accessible :content, :attachment, :topic_id
 
   scope :graph, lambda { select(['date(created_at) as date', 'count(id) as value']).group('date') }
   scope :graph_follows, lambda { select(['date(created_at) as date', 'sum(follows_count) as value']).where('follows_count > ?', 0).group('date') }

@@ -11,6 +11,9 @@
         %p.search= link_to message.topic.name, topic_path(message.topic)
     .message{ class: cycle('odd', 'even') }
       = raw message.rendered_content
+      - if message.attachment.present?
+        %p
+          %em= link_to t('.download', name: message.attachment.instance_read(:file_name)), message.attachment.url
       - if message.user && !message.user.human?
         - if can?(:bot, message.user)
           = form_for message.user, url: bot_user_path(message.user, topic_id: message.topic_id) do |f|

@@ -35,6 +35,7 @@ class User < ActiveRecord::Base
     :x40 => "-gravity center -extent 40x40"
   }
 
+  validates_attachment_size :avatar, :less_than => 10.megabytes
   validates :name, :presence => true, :length => { :maximum => 24 }
   validates_uniqueness_to_tenant :name, :case_sensitive => false
   validates_uniqueness_to_tenant :email, :case_sensitive => false
