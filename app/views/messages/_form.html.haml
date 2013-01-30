@@ -4,7 +4,11 @@
   .form-inputs
     = render 'messages/textarea', f: f
     = f.input :topic_id, :as => :hidden
-    = f.input :attachment, :as => :file
+    .expandable
+      .controls.more
+        %a= t('.more')
+      .details
+        = f.input :attachment, :as => :file
 
   .form-actions
     = f.button :submit, class: @message.new_record? || @message.user_id == current_user.id ? 'btn-primary' : 'btn-warning', value: @message.new_record? ? t('common.create') : t('common.update')

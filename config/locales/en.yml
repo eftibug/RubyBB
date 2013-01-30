@@ -160,6 +160,8 @@ en:
       title: New message
     edit:
       title: Editing message
+    form:
+      more: options...
 
   activerecord:
     models:
