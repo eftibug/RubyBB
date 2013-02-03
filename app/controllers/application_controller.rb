@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   set_current_tenant_through_filter
-  before_filter :set_tenant
+  prepend_before_filter :set_tenant
 
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
