@@ -5,7 +5,7 @@ en:
   search:
     title: Search
     find: Find
-    no_results: 'No results have been found'
+    no_results: 'No results have been found.'
     error: 'Sorry, your query is invalid.'
 
   date:
@@ -56,7 +56,8 @@ en:
       powered_by: Powered by
       about: About
     navigation:
-      admin: Admin
+      settings: Settings
+      groups: Groups
       forums: Forums
       users: Users
       user: Profile
@@ -77,9 +78,25 @@ en:
       next: "&rsaquo;"
       truncate: "..."
 
+  groups:
+    status:
+      private: private
+      public: public
+    role: Role
+    member: member
+    owner: owner
+    index:
+      title: Groups
+      edit: manage
+      no_results: 'No groups have been created yet.'
+    new:
+      title: New group
+    edit:
+      title: Edit group
+
   domains:
     show:
-      title: Administration
+      title: Settings
       update: Update
       more: advanced options...
 
@@ -94,6 +111,10 @@ en:
       title: Follows
 
   users:
+    gender:
+      male: male
+      female: female
+      other: other
     index:
       title: Users
       age: Age
@@ -169,6 +190,7 @@ en:
       forum: Forum
       topic: Topic
       message: Message
+      group: Group
     attributes:
       domain:
         title: Title
@@ -187,6 +209,9 @@ en:
       message:
         content: Message
         attachment: Attachment (1 MB)
+      group:
+        name: Name
+        status: Status
       user:
         email: Email
         password: Password

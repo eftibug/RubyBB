@@ -22,7 +22,7 @@
     %p
       %b= "#{User.human_attribute_name(:gender)}:"
       - if @user.gender.present?
-        = @user.gender
+        = t("users.gender.#{@user.gender}")
       - else
         %i= t('common.na')
 

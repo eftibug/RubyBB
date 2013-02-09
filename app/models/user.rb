@@ -2,6 +2,7 @@
 class User < ActiveRecord::Base
   acts_as_tenant(:domain)
   belongs_to :domain, :counter_cache => true
+  has_and_belongs_to_many :groups
   has_many :topics
   has_many :messages
   has_many :bookmarks, :dependent => :destroy

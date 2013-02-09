@@ -53,6 +53,10 @@ class Ability
       can :manage, Notification do |o|
         user.id == o.user_id
       end
+      can [:read, :create], Group
+      can :manage, Group do |o|
+        o.user_id == user.id || user.sysadmin?
+      end
       can :manage, User do |o|
         user.sysadmin?
       end

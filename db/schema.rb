@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130130143009) do
+ActiveRecord::Schema.define(:version => 20130209154250) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -93,6 +93,29 @@ ActiveRecord::Schema.define(:version => 20130130143009) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope"
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.string   "status",     :default => "private", :null => false
+    t.integer  "user_id",                           :null => false
+    t.integer  "domain_id",                         :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  add_index "groups", ["domain_id"], :name => "index_groups_on_domain_id"
+  add_index "groups", ["name"], :name => "index_groups_on_name"
+  add_index "groups", ["slug"], :name => "index_groups_on_slug"
+  add_index "groups", ["status"], :name => "index_groups_on_status"
+  add_index "groups", ["user_id"], :name => "index_groups_on_user_id"
+
+  create_table "groups_users", :id => false, :force => true do |t|
+    t.integer "user_id",  :null => false
+    t.integer "group_id", :null => false
+  end
+
+  add_index "groups_users", ["group_id", "user_id"], :name => "index_groups_users_on_group_id_and_user_id", :unique => true
 
   create_table "messages", :force => true do |t|
     t.text     "content"

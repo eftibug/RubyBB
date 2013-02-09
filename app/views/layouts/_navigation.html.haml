@@ -19,9 +19,10 @@
           %li= link_to t('.user'), user_path(current_user)
           %li= link_to t('.edit'), edit_user_registration_path
           %li= link_to t('.follows'), follows_path
+          %li= link_to t('.groups'), groups_path
           %li= link_to t('.logout'), destroy_user_session_path, :method=>'delete'
       - if current_user.sysadmin?
-        %li= link_to t('.admin'), admin_path
+        %li= link_to t('.settings'), admin_path
     - else
       %li= link_to t('.sign_up'), new_user_registration_path
       %li= link_to t('.login'), new_user_session_path

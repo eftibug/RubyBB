@@ -1,4 +1,16 @@
 en:
+  help:
+    groups: |
+      ### What are groups?
+      They allow you to manage categories, topics and messages access control.
+
+      There are two kinds of groups you can create and use:
+
+      * public, visible by everybody. Examples: « Moderators », « Philatelists »;
+      * private, for users sorting. Examples: « Friends », « Acquaintances ».
+
+      In both cases, you manage members of your groups.
+
   home: |
     ## Hey!
     This forum is empty. Be the first registered user and become its administrator!

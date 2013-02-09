@@ -8,7 +8,7 @@
     = f.input :location, :input_html => {:maxlength => 24}
     = f.input :website, :as => :url, :input_html => {:maxlength => 255}
     = f.input :birthdate, :start_year => Date.today.year - 100, :end_year => Date.today.year, :include_blank => true, :input_html => {:class => 'input-medium'}
-    = f.input :gender, :collection => %w[male female other]
+    = f.input :gender, :collection => %w[male female other].map{|s| [t("users.gender.#{s}"), s]}
     .expandable
       .controls.more
         %a= t('.more')

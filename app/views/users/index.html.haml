@@ -24,7 +24,7 @@
       %td.number
         = user.age if user.birthdate
       %td
-        = user.gender if user.gender
+        = t("users.gender.#{user.gender}") if user.gender
       %td.hidden-phone
         = user.location if user.location
       %td.url.hidden-phone

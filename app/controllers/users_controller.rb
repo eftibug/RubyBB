@@ -7,7 +7,12 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.where(params[:sort] + " <> ''").order(params[:sort] + " " + params[:direction]).page params[:page]
+    if params[:group]
+      @users = Group.for_user(current_user).find(params[:group]).users
+    else
+      @users = User
+    end
+    @users = @users.where(params[:sort] + " <> ''").order(params[:sort] + " " + params[:direction]).page params[:page]
 
     respond_to do |format|
       format.html # index.html.erb

@@ -1,4 +1,17 @@
 fr:
+  help:
+    groups: |
+      ### À quoi servent les groupes ?
+      Ils permettent, lors de la création d'une catégorie, topic ou message de décider qui a
+      les droits de lecture, d'écriture et d'administration dessus.
+
+      Il existe deux types de groupes que vous pouvez créer et utiliser :
+
+      * publics, visibles par tous. Exemples : « Modérateurs », « Philatélistes » ;
+      * privés, utilisés pour le tri. Exemples : « Amis », « Connaissances ».
+
+      Dans les deux cas, c'est vous qui gérez les membres de vos groupes.
+
   home: |
     ## Hey !
     Ce forum est vide. Soyez le premier utilisateur inscrit et devenez son administrateur !

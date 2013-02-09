@@ -56,7 +56,8 @@ fr:
       powered_by: Propulsé par
       about: À propos
     navigation:
-      admin: Admin
+      settings: Configuration
+      groups: Groupes
       forums: Forums
       users: Utilisateurs
       user: Profil
@@ -77,9 +78,25 @@ fr:
       next: "&rsaquo;"
       truncate: "..."
 
+  groups:
+    status:
+      private: privé
+      public: public
+    role: Role
+    member: membre
+    owner: propriétaire
+    index:
+      title: Groupes
+      edit: gérer
+      no_results: "Aucun groupe n'a encore été créé."
+    new:
+      title: Nouveau groupe
+    edit:
+      title: Gestion du groupe
+
   domains:
     show:
-      title: Administration
+      title: Configuration
       update: Mettre à jour
       more: options avancées...
 
@@ -94,6 +111,10 @@ fr:
       title: Suivis
 
   users:
+    gender:
+      male: masculin
+      female: féminin
+      other: autre
     index:
       title: Utilisateurs
       age: Âge
@@ -169,6 +190,7 @@ fr:
       forum: Forum
       topic: Topic
       message: Message
+      group: Groupe
     attributes:
       domain:
         title: Titre
@@ -187,6 +209,9 @@ fr:
       message:
         content: Message
         attachment: Fichier joint (1 Mo)
+      group:
+        name: Nom
+        status: Statut
       user:
         email: Email
         password: Mot de passe
