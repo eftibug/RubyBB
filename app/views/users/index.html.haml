@@ -22,13 +22,13 @@
         = render 'shared/avatar', user: user, size: 40
         = username user
       %td.number
-        = user.age if user.birthdate
+        = user.age if user.birthdate.present?
       %td
-        = t("users.gender.#{user.gender}") if user.gender
+        = t("users.gender.#{user.gender}") if user.gender.present?
       %td.hidden-phone
-        = user.location if user.location
+        = user.location if user.location.present?
       %td.url.hidden-phone
-        = link_to user.website, user.website, rel: :nofollow if user.website
+        = link_to user.website, user.website, rel: :nofollow if user.website.present?
       %td.number.hidden-phone= user.topics_count
       %td.number= user.messages_count
       %td.hidden-phone.hidden-tablet= l user.created_at.to_date
